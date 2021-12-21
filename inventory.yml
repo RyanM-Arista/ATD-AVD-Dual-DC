@@ -5,7 +5,7 @@ all:
         ATD_CVP:
           ansible_host: 192.168.0.194
           ansible_httpapi_host: 192.168.0.194
-#For 3 node clusters define additional hosts following the proper indentation. 
+#For 3 node clusters define additional hosts following the proper indentation.
 
 
 # ATD Dual DC Fabric Definitions
@@ -117,7 +117,7 @@ all:
         SITE2_BORDER_LEAF1:
 
 #For Vaulted password usage with Git/Ansible.
-    ATD_FABRIC_VAULT:
-      children:
-        ATD_FABRIC:
-        CVP:
+    # ATD_FABRIC_VAULT:
+    #   children:
+    #     ATD_FABRIC:
+    #     CVP:
