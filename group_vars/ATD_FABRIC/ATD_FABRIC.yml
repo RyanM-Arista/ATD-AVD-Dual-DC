@@ -1,0 +1,19 @@
+---
+
+# ----------------------  ATD Fabric Common Settings ---------------------- #
+
+# Fabric name
+fabric_name: ATD_FABRIC
+
+# EOS validate state settings
+validation_mode_loose: true
+
+# Cloud Vision servers
+cvp_instance_ips:
+  - 192.168.0.5
+
+# CVP ingest key
+cvp_ingestauth_key: "atd-lab"
+
+# Enable Multi-Agent mode
+service_routing_protocols_model: multi-agent

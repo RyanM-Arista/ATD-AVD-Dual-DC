@@ -3,8 +3,8 @@ all:
     CVP:
       hosts:
         ATD_CVP:
-          ansible_host: 192.168.0.194
-          ansible_httpapi_host: 192.168.0.194
+          ansible_host: 192.168.0.5
+          ansible_httpapi_host: 192.168.0.5
 #For 3 node clusters define additional hosts following the proper indentation.
 
 
@@ -101,7 +101,7 @@ all:
       children:
         SITE1_SPINES:
         SITE1_L3LEAFS:
-        SITE1_SPINES:
+        SITE2_SPINES:
         SITE2_L3LEAFS:
 
 #Define Switch Groups that will inherit VRF Information
