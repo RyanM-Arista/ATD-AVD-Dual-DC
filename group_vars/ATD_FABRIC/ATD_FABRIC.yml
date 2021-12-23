@@ -8,12 +8,24 @@ fabric_name: ATD_FABRIC
 # EOS validate state settings
 validation_mode_loose: true
 
-# Cloud Vision servers
-cvp_instance_ips:
-  - 192.168.0.5
+# # Cloud Vision servers
+# cvp_instance_ips:
+#   - 192.168.0.5
 
-# CVP ingest key
-cvp_ingestauth_key: "atd-lab"
+# # CVP ingest key
+# cvp_ingestauth_key: "atd-lab"
+
+#Terminattr configuration
+daemon_terminattr:
+  cvaddrs:
+    - 192.168.0.5
+  cvauth:
+    method: key
+    key: "atd-lab"
+  disable_aaa: true
+  smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
+  ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+
 
 # Enable Multi-Agent mode
 service_routing_protocols_model: multi-agent
