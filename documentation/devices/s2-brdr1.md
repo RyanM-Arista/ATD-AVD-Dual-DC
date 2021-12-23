@@ -4,8 +4,14 @@
 - [Management](#management)
   - [Management Interfaces](#management-interfaces)
   - [DNS Domain](#dns-domain)
+  - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
+  - [RADIUS Servers](#radius-servers)
+  - [IP RADIUS Source Interfaces](#ip-radius-source-interfaces)
+  - [AAA Server Groups](#aaa-server-groups)
+  - [AAA Authentication](#aaa-authentication)
+  - [AAA Authorization](#aaa-authorization)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
 - [MLAG](#mlag)
@@ -86,6 +92,23 @@ dns domain atd.lab
 !
 ```
 
+## NTP
+
+### NTP Summary
+
+#### NTP Servers
+
+| Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
+| ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
+| 192.168.0.1 | - | True | - | True | - | - | - | Management0 | - |
+
+### NTP Device Configuration
+
+```eos
+!
+ntp server 192.168.0.1 prefer iburst local-interface Management0
+```
+
 ## Management API HTTP
 
 ### Management API HTTP Summary
@@ -113,6 +136,87 @@ management api http-commands
 ```
 
 # Authentication
+
+## RADIUS Servers
+
+### RADIUS Servers
+
+| VRF | RADIUS Servers |
+| --- | ---------------|
+|  default | 192.168.0.1 |
+
+### RADIUS Servers Device Configuration
+
+```eos
+!
+radius-server host 192.168.0.1 key 7 0207165218120E
+```
+
+## IP RADIUS Source Interfaces
+
+### IP RADIUS Source Interfaces
+
+| VRF | Source Interface Name |
+| --- | --------------- |
+| default | Management0 |
+
+### IP SOURCE Source Interfaces Device Configuration
+
+```eos
+!
+ip radius source-interface Management0
+```
+
+## AAA Server Groups
+
+### AAA Server Groups Summary
+
+| Server Group Name | Type  | VRF | IP address |
+| ------------------| ----- | --- | ---------- |
+| atds | radius |  default | 192.168.0.1 |
+
+### AAA Server Groups Device Configuration
+
+```eos
+!
+aaa group server radius atds
+   server 192.168.0.1
+```
+
+## AAA Authentication
+
+### AAA Authentication Summary
+
+| Type | Sub-type | User Stores |
+| ---- | -------- | ---------- |
+| Login | default | group atds local |
+
+### AAA Authentication Device Configuration
+
+```eos
+!
+aaa authentication login default group atds local
+!
+```
+
+## AAA Authorization
+
+### AAA Authorization Summary
+
+| Type | User Stores |
+| ---- | ----------- |
+| Exec | group atds local |
+
+Authorization for configuration commands is disabled.
+
+### AAA Authorization Device Configuration
+
+```eos
+!
+aaa authorization exec default group atds local
+aaa authorization commands all default local
+!
+```
 
 # Monitoring
 
