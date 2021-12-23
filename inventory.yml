@@ -34,12 +34,6 @@ all:
                       ansible_host: 192.168.0.14
                     s1-leaf4:
                       ansible_host: 192.168.0.15
-                SITE1_HOSTS:
-                  hosts:
-                    s1-host1:
-                      ansible_host: 192.168.0.16
-                    s1-host2:
-                      ansible_host: 192.168.0.17
                 SITE1_BORDER_LEAF1:
                   hosts:
                     s1-brdr1:
@@ -52,7 +46,14 @@ all:
                       ansible_host: 192.168.0.102
                     s1-core2:
                       ansible_host: 192.168.0.103
-
+            SITE1_L2LEAFS:
+              children:
+                SITE1_HOSTS:
+                  hosts:
+                    s1-host1:
+                      ansible_host: 192.168.0.16
+                    s1-host2:
+                      ansible_host: 192.168.0.17
 # Site 2
         SITE2:
           children:
@@ -76,12 +77,6 @@ all:
                       ansible_host: 192.168.0.24
                     s2-leaf4:
                       ansible_host: 192.168.0.25
-                SITE2_HOSTS:
-                  hosts:
-                    s2-host1:
-                      ansible_host: 192.168.0.26
-                    s2-host2:
-                      ansible_host: 192.168.0.27
                 SITE2_BORDER_LEAF1:
                   hosts:
                     s2-brdr1:
@@ -94,15 +89,24 @@ all:
                       ansible_host: 192.168.0.202
                     s2-core2:
                       ansible_host: 192.168.0.203
+            SITE2_L2LEAFS:
+              children:
+                SITE2_HOSTS:
+                  hosts:
+                    s2-host1:
+                      ansible_host: 192.168.0.26
+                    s2-host2:
+                      ansible_host: 192.168.0.27
 
-
-# ATD Global Groups, File EOS.yml contins Fabric Wide information
+# ATD Global Groups, File EOS.yml contains Fabric Wide information
     EOS:
       children:
         SITE1_SPINES:
         SITE1_L3LEAFS:
+        SITE1_L2LEAFS:
         SITE2_SPINES:
         SITE2_L3LEAFS:
+        SITE2_L2LEAFS:
 
 #Define Switch Groups that will inherit VRF Information
     ATD_TENANTS_NETWORKS:

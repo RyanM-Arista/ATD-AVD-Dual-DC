@@ -1,0 +1,211 @@
+router_bgp:
+  as: '65112'
+  router_id: 10.1.3.4
+  bgp_defaults:
+  - update wait-for-convergence
+  - update wait-install
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - maximum-paths 4 ecmp 4
+  peer_groups:
+    MLAG-IPv4-UNDERLAY-PEER:
+      type: ipv4
+      remote_as: '65112'
+      next_hop_self: true
+      maximum_routes: 12000
+      send_community: all
+      route_map_in: RM-MLAG-PEER-IN
+    IPv4-UNDERLAY-PEERS:
+      type: ipv4
+      maximum_routes: 12000
+      send_community: all
+    EVPN-OVERLAY-PEERS:
+      type: evpn
+      update_source: Loopback0
+      bfd: true
+      ebgp_multihop: '3'
+      send_community: all
+      maximum_routes: 0
+  address_family_ipv4:
+    peer_groups:
+      MLAG-IPv4-UNDERLAY-PEER:
+        activate: true
+      IPv4-UNDERLAY-PEERS:
+        activate: true
+      EVPN-OVERLAY-PEERS:
+        activate: false
+  neighbors:
+    10.1.5.4:
+      peer_group: MLAG-IPv4-UNDERLAY-PEER
+      description: s1-leaf3
+  redistribute_routes:
+    connected:
+      route_map: RM-CONN-2-BGP
+  address_family_evpn:
+    peer_groups:
+      EVPN-OVERLAY-PEERS:
+        activate: true
+static_routes:
+- vrf: default
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.0.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: key
+    key: atd-lab
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+spanning_tree:
+  mode: mstp
+  mst_instances:
+    '0':
+      priority: 32768
+  no_spanning_tree_vlan: 4093-4094
+vrfs:
+  default:
+    ip_routing: false
+management_interfaces:
+  Management0:
+    description: oob_management
+    shutdown: false
+    vrf: default
+    ip_address: 192.168.0.15/24
+    gateway: 192.168.0.1
+    type: oob
+management_api_http:
+  enable_vrfs:
+    default: {}
+  enable_https: true
+vlans:
+  4093:
+    tenant: system
+    name: LEAF_PEER_L3
+    trunk_groups:
+    - LEAF_PEER_L3
+  4094:
+    tenant: system
+    name: MLAG_PEER
+    trunk_groups:
+    - MLAG
+vlan_interfaces:
+  Vlan4093:
+    description: MLAG_PEER_L3_PEERING
+    shutdown: false
+    ip_address: 10.1.5.5/31
+    mtu: 9000
+  Vlan4094:
+    description: MLAG_PEER
+    shutdown: false
+    ip_address: 10.1.6.5/31
+    no_autostate: true
+    mtu: 9000
+port_channel_interfaces:
+  Port-Channel1:
+    description: MLAG_PEER_s1-leaf3_Po1
+    type: switched
+    shutdown: false
+    vlans: 2-4094
+    mode: trunk
+    trunk_groups:
+    - LEAF_PEER_L3
+    - MLAG
+  Port-Channel4:
+    description: S1-HOST2_Po1
+    type: switched
+    shutdown: false
+    mode: trunk
+    mlag: 4
+ethernet_interfaces:
+  Ethernet1:
+    peer: s1-leaf3
+    peer_interface: Ethernet1
+    peer_type: mlag_peer
+    description: MLAG_PEER_s1-leaf3_Ethernet1
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+  Ethernet6:
+    peer: s1-leaf3
+    peer_interface: Ethernet6
+    peer_type: mlag_peer
+    description: MLAG_PEER_s1-leaf3_Ethernet6
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+  Ethernet4:
+    peer: s1-host2
+    peer_interface: Ethernet2
+    peer_type: l2leaf
+    description: S1-HOST2_Ethernet2
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 4
+      mode: active
+mlag_configuration:
+  domain_id: SITE1_DC_LEAF2
+  local_interface: Vlan4094
+  peer_address: 10.1.6.4
+  peer_link: Port-Channel1
+  reload_delay_mlag: 300
+  reload_delay_non_mlag: 330
+route_maps:
+  RM-MLAG-PEER-IN:
+    sequence_numbers:
+      10:
+        type: permit
+        set:
+        - origin incomplete
+        description: Make routes learned over MLAG Peer-link less preferred on spines to ensure optimal routing
+  RM-CONN-2-BGP:
+    sequence_numbers:
+      10:
+        type: permit
+        match:
+        - ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+loopback_interfaces:
+  Loopback0:
+    description: EVPN_Overlay_Peering
+    shutdown: false
+    ip_address: 10.1.3.4/32
+  Loopback1:
+    description: VTEP_VXLAN_Tunnel_Source
+    shutdown: false
+    ip_address: 10.1.4.3/32
+prefix_lists:
+  PL-LOOPBACKS-EVPN-OVERLAY:
+    sequence_numbers:
+      10:
+        action: permit 10.1.3.0/24 eq 32
+      20:
+        action: permit 10.1.4.0/24 eq 32
+router_bfd:
+  multihop:
+    interval: 300
+    min_rx: 300
+    multiplier: 3
+ip_igmp_snooping:
+  globally_enabled: true
+ip_virtual_router_mac_address: 00:1c:73:00:00:34
+vxlan_interface:
+  Vxlan1:
+    description: s1-leaf4_VTEP
+    vxlan:
+      source_interface: Loopback1
+      virtual_router_encapsulation_mac_address: mlag-system-id
+      udp_port: 4789

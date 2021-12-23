@@ -1,0 +1,70 @@
+static_routes:
+- vrf: default
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.0.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+daemon_terminattr:
+  cvaddrs:
+  - 192.168.0.5:9910
+  cvauth:
+    method: key
+    key: atd-lab
+  cvvrf: default
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  disable_aaa: false
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+spanning_tree:
+  mode: mstp
+  mst_instances:
+    '0':
+      priority: 32768
+vrfs:
+  default:
+    ip_routing: false
+management_interfaces:
+  Management0:
+    description: oob_management
+    shutdown: false
+    vrf: default
+    ip_address: 192.168.0.17/24
+    gateway: 192.168.0.1
+    type: oob
+management_api_http:
+  enable_vrfs:
+    default: {}
+  enable_https: true
+ethernet_interfaces:
+  Ethernet1:
+    peer: s1-leaf3
+    peer_interface: Ethernet4
+    peer_type: l3leaf
+    description: S1-LEAF3_Ethernet4
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+  Ethernet2:
+    peer: s1-leaf4
+    peer_interface: Ethernet4
+    peer_type: l3leaf
+    description: S1-LEAF4_Ethernet4
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 1
+      mode: active
+port_channel_interfaces:
+  Port-Channel1:
+    description: SITE1_DC_LEAF2_Po4
+    type: switched
+    shutdown: false
+    mode: trunk
+ip_igmp_snooping:
+  globally_enabled: true

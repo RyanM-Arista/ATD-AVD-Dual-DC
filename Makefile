@@ -13,3 +13,7 @@ help: ## Display help message (*: main entry points / []: part of an entry point
 .PHONY: fabric-build
 fabric-build: ## Run ansible playbook to build Fabric configuration for ATD Fabric and CVP (will build configuration locally on your VS Code Instance)
 	ansible-playbook playbooks/fabric-deploy.yml --tags build -i inventory.yml
+
+.PHONY: build-debug
+build-debug: ## Run ansible playbook to build Fabric configuration for AVD Fabric and CVP with debugging enabled
+	ansible-playbook playbooks/fabric-deploy.yml --tags build,debug -i inventory.yml

@@ -18,10 +18,14 @@
   connection: local
   gather_facts: no
 
-  vars_prompt:
+  # vars_prompt:
 
-      - name: ansible_password
-        prompt: What is your lab password?
+  #     - name: ansible_user
+  #       prompt: What is your username?
+  #       private: no
+
+  #     - name: ansible_password
+  #       prompt: What is your lab password?
 
   tasks:
 

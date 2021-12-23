@@ -17,3 +17,28 @@ cvp_ingestauth_key: "atd-lab"
 
 # Enable Multi-Agent mode
 service_routing_protocols_model: multi-agent
+
+# Default BGP settings (for items not found on AVD)
+atd_bgp_defaults:
+  - 'update wait-for-convergence'
+  - 'update wait-install'
+  - 'no bgp default ipv4-unicast'
+  - 'distance bgp 20 200 200'
+
+# vARP MAC address
+atd_virtual_router_mac_address: 00:1c:73:00:00:34
+
+#Platform MLAG Standards
+CEOS_MLAG_Interfaces: ['Ethernet1', 'Ethernet6']
+
+#Platform UPLINK Standards
+CEOS_HOST_UPLINK_Interfaces: ['Ethernet1', 'Ethernet2']
+CEOS_LEAF_UPLINK_Interfaces: ['Ethernet1', 'Ethernet2']
+CEOS_CORE_UPLINK_Interfaces: ['Ethernet2', 'Ethernet3']
+CEOS_UPLINK_SWITCH_Interfaces: ['Ethernet4', 'Ethernet4']
+
+# Management VRF Name
+mgmt_interface_vrf: default
+
+# DNS information
+dns_domain: atd.lab
