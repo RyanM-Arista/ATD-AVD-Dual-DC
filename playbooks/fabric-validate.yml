@@ -1,0 +1,10 @@
+---
+
+- name: Validate state of ATD Fabric
+  hosts: ATD_FABRIC
+
+  tasks:
+
+    - name: validate states on EOS devices
+      import_role:
+         name: arista.avd.eos_validate_state
