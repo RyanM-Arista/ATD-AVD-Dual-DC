@@ -15,7 +15,7 @@ fabric-build: ## Run ansible playbook to build Fabric configuration for ATD Fabr
 	ansible-playbook playbooks/fabric-deploy.yml --tags build -i inventory.yml
 
 .PHONY: fabric-provision
-fabric-build: ## Run ansible playbook to build EVPN Fabric configuration for ATD Fabric and CV (will provision/create tasks on CVP for Change Control procedures)
+fabric-provision: ## Run ansible playbook to build EVPN Fabric configuration for ATD Fabric and CV (will provision/create tasks on CVP for Change Control procedures)
 	ansible-playbook playbooks/fabric-deploy.yml --tags provision -i inventory.yml
 
 .PHONY: fabric-validate
