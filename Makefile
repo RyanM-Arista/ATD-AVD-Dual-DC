@@ -33,3 +33,7 @@ build-debug: ## Run ansible playbook to build Fabric configuration for AVD Fabri
 .PHONY: initial-deploy
 initial-deploy: ## Deploy Fabric configuration for ATD Fabric using SSH/eAPI (Bypass CVP)
 	ansible-playbook playbooks/fabric-ssh-deploy.yml -i inventory.yml
+
+.PHONY: update-configlet
+update-configlet: ## Run ansible playbook to update configlets on CloudVision
+	ansible-playbook playbooks/cvp-deploy.yml --tags provision --skip-tags containers,apply -i inventory.yml
