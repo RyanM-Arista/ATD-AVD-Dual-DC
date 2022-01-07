@@ -20,7 +20,7 @@ router_bgp:
     connected:
       route_map: RM-CONN-2-BGP
 static_routes:
-- vrf: default
+- vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
   gateway: 192.168.0.1
 service_routing_protocols_model: multi-agent
@@ -33,19 +33,19 @@ vlan_internal_order:
 spanning_tree:
   mode: none
 vrfs:
-  default:
+  MGMT:
     ip_routing: false
 management_interfaces:
   Management0:
     description: oob_management
     shutdown: false
-    vrf: default
+    vrf: MGMT
     ip_address: 192.168.0.11/24
     gateway: 192.168.0.1
     type: oob
 management_api_http:
   enable_vrfs:
-    default: {}
+    MGMT: {}
   enable_https: true
 loopback_interfaces:
   Loopback0:

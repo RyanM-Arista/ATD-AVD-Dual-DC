@@ -50,7 +50,7 @@ CEOS_CORE_UPLINK_Interfaces: ['Ethernet2', 'Ethernet3']
 CEOS_UPLINK_SWITCH_Interfaces: ['Ethernet4', 'Ethernet4']
 
 # Management VRF Name
-mgmt_interface_vrf: default
+mgmt_interface_vrf: MGMT
 
 # DNS information
 dns_domain: atd.lab
