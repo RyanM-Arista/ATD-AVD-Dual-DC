@@ -25,7 +25,7 @@ daemon_terminattr:
   disable_aaa: true
   smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
   ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
-
+  cvvrf: MGMT
 
 # Enable Multi-Agent mode
 service_routing_protocols_model: multi-agent
