@@ -1,6 +1,6 @@
 CVP_CONFIGLETS:
   AVD_s1-brdr1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-brdr1\n\
@@ -56,7 +56,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-brdr2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-brdr2\n\
@@ -112,7 +112,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-core1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-core1\n\
@@ -168,7 +168,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-core2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-core2\n\
@@ -224,7 +224,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-host1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-host1\n\
@@ -244,7 +244,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-host2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-host2\n\
@@ -264,7 +264,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-leaf1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-leaf1\n\
@@ -323,7 +323,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s1-leaf2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-leaf2\n\
@@ -382,7 +382,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s1-leaf3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-leaf3\n\
@@ -441,7 +441,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s1-leaf4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-leaf4\n\
@@ -500,7 +500,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s1-spine1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-spine1\n\
@@ -525,7 +525,7 @@ CVP_CONFIGLETS:
     management api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
     \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-spine2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s1-spine2\n\
@@ -550,7 +550,7 @@ CVP_CONFIGLETS:
     management api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
     \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-brdr1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-brdr1\n\
@@ -606,7 +606,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-brdr2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-brdr2\n\
@@ -662,7 +662,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-core1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-core1\n\
@@ -718,7 +718,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-core2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-core2\n\
@@ -774,7 +774,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-host1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-host1\n\
@@ -794,7 +794,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-host2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-host2\n\
@@ -814,7 +814,7 @@ CVP_CONFIGLETS:
     \ Management0\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n\
     \   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-leaf1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-leaf1\n\
@@ -873,7 +873,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s2-leaf2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-leaf2\n\
@@ -932,7 +932,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s2-leaf3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-leaf3\n\
@@ -991,7 +991,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s2-leaf4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-leaf4\n\
@@ -1050,7 +1050,7 @@ CVP_CONFIGLETS:
     \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
     end\n"
   AVD_s2-spine1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-spine1\n\
@@ -1075,7 +1075,7 @@ CVP_CONFIGLETS:
     management api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
     \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-spine2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
-    \ -cvaddr=192.168.0.5 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
     !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
     \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname s2-spine2\n\
