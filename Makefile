@@ -20,14 +20,14 @@ fabric-provision: ## Run ansible playbook to build EVPN Fabric configuration for
 
 .PHONY: fabric-validate
 fabric-validate: ## Run ansible playbook to validate EVPN Fabric configuration for ATD Fabric and eAPI
-	ansible-playbook playbooks/fabric-validate-state.yml -i inventory.yml
+	ansible-playbook playbooks/fabric-validate.yml -i inventory.yml
 
 .PHONY: fabric-backup
 fabric-backup: ## Run ansible playbook to backup switch fabric via eAPI
 	ansible-playbook playbooks/fabric-backup.yml -i inventory.yml
 
-.PHONY: build-debug
-build-debug: ## Run ansible playbook to build Fabric configuration for AVD Fabric and CVP with debugging enabled
+.PHONY: debug-build
+debug-build: ## Run ansible playbook to build Fabric configuration for AVD Fabric and CVP with debugging enabled
 	ansible-playbook playbooks/fabric-deploy.yml --tags build,debug -i inventory.yml
 
 .PHONY: initial-deploy

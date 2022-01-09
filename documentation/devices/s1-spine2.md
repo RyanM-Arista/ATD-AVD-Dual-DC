@@ -87,13 +87,13 @@ dns domain atd.lab
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
 | ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
-| 192.168.0.1 | - | True | - | True | - | - | - | Management0 | - |
+| 192.168.0.1 | MGMT | True | - | True | - | - | - | Management0 | - |
 
 ### NTP Device Configuration
 
 ```eos
 !
-ntp server 192.168.0.1 prefer iburst local-interface Management0
+ntp server vrf MGMT 192.168.0.1 prefer iburst local-interface Management0
 ```
 
 ## Management API HTTP
@@ -130,13 +130,13 @@ management api http-commands
 
 | VRF | RADIUS Servers |
 | --- | ---------------|
-|  default | 192.168.0.1 |
+|  MGMT | 192.168.0.1 |
 
 ### RADIUS Servers Device Configuration
 
 ```eos
 !
-radius-server host 192.168.0.1 key 7 0207165218120E
+radius-server host 192.168.0.1 vrf MGMT key 7 0207165218120E
 ```
 
 ## IP RADIUS Source Interfaces
@@ -145,13 +145,13 @@ radius-server host 192.168.0.1 key 7 0207165218120E
 
 | VRF | Source Interface Name |
 | --- | --------------- |
-| default | Management0 |
+| MGMT | Management0 |
 
 ### IP SOURCE Source Interfaces Device Configuration
 
 ```eos
 !
-ip radius source-interface Management0
+ip radius vrf MGMT source-interface Management0
 ```
 
 ## AAA Server Groups
@@ -160,14 +160,14 @@ ip radius source-interface Management0
 
 | Server Group Name | Type  | VRF | IP address |
 | ------------------| ----- | --- | ---------- |
-| atds | radius |  default | 192.168.0.1 |
+| atds | radius |  MGMT | 192.168.0.1 |
 
 ### AAA Server Groups Device Configuration
 
 ```eos
 !
 aaa group server radius atds
-   server 192.168.0.1
+   server 192.168.0.1 vrf MGMT
 ```
 
 ## AAA Authentication
