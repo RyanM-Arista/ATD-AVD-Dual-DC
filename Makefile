@@ -37,3 +37,7 @@ initial-deploy: ## Deploy Fabric configuration for ATD Fabric using SSH/eAPI (By
 .PHONY: update-configlet
 update-configlet: ## Run ansible playbook to update configlets on CloudVision
 	ansible-playbook playbooks/fabric-cvp-deploy.yml --tags provision --skip-tags containers,apply -i inventory.yml
+
+.PHONY: baseline
+baseline: ## Run ansible playbook to Baseline CloudVision
+	ansible-playbook playbooks/baseline-fabric.yml -i inventory.yml
