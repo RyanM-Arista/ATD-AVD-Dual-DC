@@ -1,0 +1,34 @@
+---
+- name: Setup AAA for ATD
+  hosts: localhost
+
+  vars_prompt:
+
+      - name: ansible_user
+        prompt: What is your username?
+        private: no
+
+      - name: ansible_password
+        prompt: What is your lab password?
+        encrypt: sha512_crypt
+        confirm: yes
+
+  tasks:
+
+    - name: Setup AAA configs
+      ansible.builtin.debug:
+        msg: 'Setup AAA configs for {{ ansible_user }}'
+    - name: Creating AAA config file
+      file:
+        path: "/home/coder/project/ATD-AVD-Dual-DC/group_vars/ATD_FABRIC/AAA.yml"
+        state: touch
+      become: yes
+
+    - name: Writing to AAA config file
+      copy:
+        dest: "/home/coder/project/ATD-AVD-Dual-DC/group_vars/ATD_FABRIC/AAA.yml"
+        content: |
+          arista:
+            privilege: 15
+            role: network-admin
+            sha512_password: "{{ ansible_password }}"

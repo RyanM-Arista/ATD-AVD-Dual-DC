@@ -9,16 +9,26 @@ elif [ $collectioninstall = 'update' ]
 then
   ansible-galaxy collection install arista.avd --upgrade
 else
-  echo invalid option
+  echo "invalid option"
 fi
-echo -n "Install or update python packages? [ yes | no ] "
+echo -n "Install/update python packages? [ yes | no ] "
 read pythonpkgs
 if [ $pythonpkgs = 'yes' ]
 then
-  echo Installing additional packages
+  echo "Installing additional packages"
   pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements.txt
-  echo Done
+  echo "Done"
 else
-  echo Skipped python package install/update
+  echo "Skipped python package install/update"
 fi
-  
+echo -n "Install/update devel branch? [ yes | no ] "
+read pythonpkgs
+if [ $pythonpkgs = 'yes' ]
+then
+  echo "Installing additional packages for devel"
+  ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
+  pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements-dev.txt
+  echo "Done"
+else
+  echo "Devel branch install skipped"
+fi
