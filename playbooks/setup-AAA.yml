@@ -28,7 +28,8 @@
       copy:
         dest: "/home/coder/project/ATD-AVD-Dual-DC/group_vars/ATD_FABRIC/AAA.yml"
         content: |
-          arista:
-            privilege: 15
-            role: network-admin
-            sha512_password: "{{ ansible_password }}"
+          local_users:
+            arista:
+              privilege: 15
+              role: network-admin
+              sha512_password: "{{ ansible_password }}"
