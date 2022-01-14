@@ -12,6 +12,7 @@
 
       - name: ansible_password
         prompt: What is your lab password?
+        #encrypt: sha512_crypt
         confirm: yes
 
   vars:
@@ -28,7 +29,7 @@
     #   debug:
     #     msg: '{{CVP_FACTS.ansible_facts.configlets | selectattr("name", "==", "ATD-INFRA") | map(attribute="config") | join(" ") | regex_findall("username .*") }}'
 
-    - name: Create AAA file
+    - name: Create AAA template
       template:
         src: "{{lookup('env','PWD')}}/roles/templates/AAA.j2"
         dest: "{{lookup('env','PWD')}}/group_vars/ATD_FABRIC/AAA.yml"

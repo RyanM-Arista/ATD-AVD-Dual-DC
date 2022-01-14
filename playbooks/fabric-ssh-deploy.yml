@@ -8,12 +8,12 @@
     - name: Deploy Configuration
       import_role:
          name: arista.avd.eos_config_deploy_eapi
-         
+
   vars_prompt:
 
-      - name: ansible_user
-        prompt: What is your username?
-        private: no
+      # - name: ansible_user
+      #   prompt: What is your username?
+      #   private: no
 
       - name: ansible_password
         prompt: What is your lab password?
