@@ -1,6 +1,6 @@
 ---
 
-- name: cv_configlet
+- name: Setup AAA for ATD
   hosts: ATD_CVP
   connection: local
   gather_facts: no

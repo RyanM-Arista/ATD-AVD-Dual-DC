@@ -26,8 +26,8 @@ read pythonpkgs
 if [ $pythonpkgs = 'yes' ]
 then
   echo "Installing additional packages for devel"
-  sudo pip uninstall ansible-base
-  sudo pip install ansible-core
+  # pip uninstall ansible-base
+  # pip install ansible-core
   ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
   pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements-dev.txt
   echo "Done"
