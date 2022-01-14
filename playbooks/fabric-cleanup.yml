@@ -1,0 +1,31 @@
+---
+
+- name: Fabric Cleanup
+  hosts: ATD_CVP
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+
+      # - name: ansible_user
+      #   prompt: What is your username?
+      #   private: no
+
+      - name: ansible_password
+        prompt: What is your password?
+
+  tasks:
+    - include_vars:
+        file: "{{lookup('env','PWD')}}/intended/structured_configs/cvp/ATD_CVP.yml"
+        name: containers
+    - name: 'running cleanup containers'
+      arista.cvp.cv_container_v3:
+        topology: "{{containers.CVP_CONTAINERS}}"
+        apply_mode: strict
+    - name: "Cleaning up device configlets on {{inventory_hostname}}"
+      arista.cvp.cv_device_v3:
+        devices: '{{containers.CVP_DEVICES}}'
+        state: present
+        apply_mode: strict
+
+

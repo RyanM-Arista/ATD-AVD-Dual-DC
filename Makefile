@@ -41,3 +41,7 @@ update-configlet: ## Run ansible playbook to update configlets on CloudVision
 .PHONY: setupAAA
 setupAAA: ## Run ansible playbook to Baseline CloudVision
 	ansible-playbook playbooks/setup-AAA.yml -i inventory.yml
+
+.PHONY: fabric-cleanup
+fabric-cleanup: ## Run ansible playbook to build Fabric configuration for ATD Fabric and CVP (will build configuration locally on your VS Code Instance)
+	ansible-playbook playbooks/fabric-cleanup.yml -i inventory.yml
