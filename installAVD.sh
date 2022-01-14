@@ -25,9 +25,15 @@ echo -n "Install/update devel branch? [ yes | no ] "
 read pythonpkgs
 if [ $pythonpkgs = 'yes' ]
 then
+  echo -n "Update Ansible version (maybe required) [ yes | no ] "
+  read ansibleupd
+  if [ $ansibleupd = 'yes' ]
+  then
+    sudo pip3 uninstall -y ansible
+    sudo pip3 uninstall -y ansible-base
+    sudo pip3 install ansible
+  fi
   echo "Installing additional packages for devel"
-  # pip uninstall ansible-base
-  # pip install ansible-core
   ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
   pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements-dev.txt
   echo "Done"
