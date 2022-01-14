@@ -23,5 +23,4 @@ intended/structured_configs/s2-leaf3-debug-vars.yml
 intended/structured_configs/s2-leaf4-debug-vars.yml
 intended/structured_configs/s2-spine1-debug-vars.yml
 intended/structured_configs/s2-spine2-debug-vars.yml
-group_vars/ATD_FABRIC/AAA.yml
 group_vars/CVP/CVP_CRED.yml

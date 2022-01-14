@@ -7,6 +7,7 @@
   - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
+  - [Local Users](#local-users)
   - [RADIUS Servers](#radius-servers)
   - [IP RADIUS Source Interfaces](#ip-radius-source-interfaces)
   - [AAA Server Groups](#aaa-server-groups)
@@ -123,6 +124,22 @@ management api http-commands
 
 # Authentication
 
+## Local Users
+
+### Local Users Summary
+
+| User | Privilege | Role |
+| ---- | --------- | ---- |
+| arista | 15 | network-admin |
+
+### Local Users Device Configuration
+
+```eos
+!
+username arista privilege 15 role network-admin secret sha512 run_playbook_setupAAA
+username arista ssh-key run_playbook_setupAAA_Install_Devel_branch_if_not_generated
+```
+
 ## RADIUS Servers
 
 ### RADIUS Servers
@@ -195,6 +212,12 @@ aaa authentication login default group atds local
 
 Authorization for configuration commands is disabled.
 
+### AAA Authorization Privilege Levels Summary
+
+| Privilege Level | User Stores |
+| --------------- | ----------- |
+| all | local |
+
 ### AAA Authorization Device Configuration
 
 ```eos
@@ -234,9 +257,6 @@ STP mode: **mstp**
 | Instance(s) | Priority |
 | -------- | -------- |
 | 0 | 32768 |
-
-### Global Spanning-Tree Settings
-
 
 ## Spanning Tree Device Configuration
 

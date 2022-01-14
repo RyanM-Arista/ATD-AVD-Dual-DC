@@ -7,6 +7,7 @@
   - [NTP](#ntp)
   - [Management API HTTP](#management-api-http)
 - [Authentication](#authentication)
+  - [Local Users](#local-users)
   - [RADIUS Servers](#radius-servers)
   - [IP RADIUS Source Interfaces](#ip-radius-source-interfaces)
   - [AAA Server Groups](#aaa-server-groups)
@@ -141,6 +142,22 @@ management api http-commands
 
 # Authentication
 
+## Local Users
+
+### Local Users Summary
+
+| User | Privilege | Role |
+| ---- | --------- | ---- |
+| arista | 15 | network-admin |
+
+### Local Users Device Configuration
+
+```eos
+!
+username arista privilege 15 role network-admin secret sha512 run_playbook_setupAAA
+username arista ssh-key run_playbook_setupAAA_Install_Devel_branch_if_not_generated
+```
+
 ## RADIUS Servers
 
 ### RADIUS Servers
@@ -213,6 +230,12 @@ aaa authentication login default group atds local
 
 Authorization for configuration commands is disabled.
 
+### AAA Authorization Privilege Levels Summary
+
+| Privilege Level | User Stores |
+| --------------- | ----------- |
+| all | local |
+
 ### AAA Authorization Device Configuration
 
 ```eos
@@ -278,7 +301,7 @@ STP mode: **mstp**
 
 ### Global Spanning-Tree Settings
 
-Spanning Tree disabled for VLANs: **4093-4094**
+- Spanning Tree disabled for VLANs: **4093-4094**
 
 ## Spanning Tree Device Configuration
 
@@ -480,9 +503,9 @@ interface Loopback103
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
-| Vlan101 |  RED  |  -  |  10.100.101.1/24  |  -  |  -  |  -  |  -  |
-| Vlan202 |  BLUE  |  -  |  10.100.202.1/24  |  -  |  -  |  -  |  -  |
-| Vlan303 |  GREEN  |  -  |  10.100.303.1/24  |  -  |  -  |  -  |  -  |
+| Vlan101 |  RED  |  -  |  10.100.1.1/24  |  -  |  -  |  -  |  -  |
+| Vlan202 |  BLUE  |  -  |  10.100.2.1/24  |  -  |  -  |  -  |  -  |
+| Vlan303 |  GREEN  |  -  |  10.100.3.1/24  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.2.5.1/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.2.6.1/31  |  -  |  -  |  -  |  -  |  -  |
 
@@ -495,19 +518,19 @@ interface Vlan101
    description RED_VLAN_101
    no shutdown
    vrf RED
-   ip address virtual 10.100.101.1/24
+   ip address virtual 10.100.1.1/24
 !
 interface Vlan202
    description BLUE_VLAN_202
    no shutdown
    vrf BLUE
-   ip address virtual 10.100.202.1/24
+   ip address virtual 10.100.2.1/24
 !
 interface Vlan303
    description GREEN_VLAN_303
    no shutdown
    vrf GREEN
-   ip address virtual 10.100.303.1/24
+   ip address virtual 10.100.3.1/24
 !
 interface Vlan4093
    description MLAG_PEER_L3_PEERING
@@ -686,9 +709,9 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 
 ### BGP Neighbors
 
-| Neighbor | Remote AS | VRF | Send-community | Maximum-routes |
-| -------- | --------- | --- | -------------- | -------------- |
-| 10.2.5.0 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER |
+| Neighbor | Remote AS | VRF | Send-community | Maximum-routes | Allowas-in |
+| -------- | --------- | --- | -------------- | -------------- | ---------- |
+| 10.2.5.0 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - |
 
 ### Router BGP EVPN Address Family
 

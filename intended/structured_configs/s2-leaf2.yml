@@ -124,6 +124,12 @@ spanning_tree:
     '0':
       priority: 32768
   no_spanning_tree_vlan: 4093-4094
+local_users:
+  arista:
+    privilege: 15
+    role: network-admin
+    sha512_password: run_playbook_setupAAA
+    ssh_key: run_playbook_setupAAA_Install_Devel_branch_if_not_generated
 vrfs:
   MGMT:
     ip_routing: false
@@ -188,7 +194,7 @@ vlan_interfaces:
     description: BLUE_VLAN_202
     shutdown: false
     vrf: BLUE
-    ip_address_virtual: 10.100.202.1/24
+    ip_address_virtual: 10.100.2.1/24
   Vlan303:
     tenant: ATD_GREEN
     tags:
@@ -197,7 +203,7 @@ vlan_interfaces:
     description: GREEN_VLAN_303
     shutdown: false
     vrf: GREEN
-    ip_address_virtual: 10.100.303.1/24
+    ip_address_virtual: 10.100.3.1/24
   Vlan101:
     tenant: ATD_RED
     tags:
@@ -206,7 +212,7 @@ vlan_interfaces:
     description: RED_VLAN_101
     shutdown: false
     vrf: RED
-    ip_address_virtual: 10.100.101.1/24
+    ip_address_virtual: 10.100.1.1/24
 port_channel_interfaces:
   Port-Channel1:
     description: MLAG_PEER_s2-leaf1_Po1

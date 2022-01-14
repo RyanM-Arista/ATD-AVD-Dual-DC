@@ -14,6 +14,12 @@ spanning_tree:
   mst_instances:
     '0':
       priority: 32768
+local_users:
+  arista:
+    privilege: 15
+    role: network-admin
+    sha512_password: run_playbook_setupAAA
+    ssh_key: run_playbook_setupAAA_Install_Devel_branch_if_not_generated
 vrfs:
   MGMT:
     ip_routing: false
