@@ -1,0 +1,27 @@
+####################################################
+## ATD Tenant Specific Information - VRFs / VLANs ##
+####################################################
+
+# Tenant GREEN Specific Information - VRFs / VLANs
+
+ATD_GREEN:
+  enable_mlag_ibgp_peering_vrfs: false
+  mac_vrf_vni_base: 10000
+  vrfs:
+    GREEN:
+      vrf_vni: 503
+      vtep_diagnostic:
+        loopback: 103
+        #Loopback pool 10.0.10.0/24
+        loopback_ip_pools:
+          - pod: SITE1_POD
+            ipv4_pool: 10.0.10.128/27
+          - pod: SITE2_POD
+            ipv4_pool: 10.0.10.160/27
+
+      svis:
+        303:
+          name: GREEN_VLAN_303
+          tags: [ SITE1_DC, SITE2_DC ]
+          enabled: true
+          ip_address_virtual: 10.100.303.1/24

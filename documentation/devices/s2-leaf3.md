@@ -50,6 +50,9 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [Virtual Source NAT](#virtual-source-nat)
+  - [Virtual Source NAT Summary](#virtual-source-nat-summary)
+  - [Virtual Source NAT Configuration](#virtual-source-nat-configuration)
 - [Quality Of Service](#quality-of-service)
 
 # Management
@@ -307,12 +310,24 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 101 | RED_VLAN_101 | - |
+| 202 | BLUE_VLAN_202 | - |
+| 303 | GREEN_VLAN_303 | - |
 | 4093 | LEAF_PEER_L3 | LEAF_PEER_L3 |
 | 4094 | MLAG_PEER | MLAG |
 
 ## VLANs Device Configuration
 
 ```eos
+!
+vlan 101
+   name RED_VLAN_101
+!
+vlan 202
+   name BLUE_VLAN_202
+!
+vlan 303
+   name GREEN_VLAN_303
 !
 vlan 4093
    name LEAF_PEER_L3
@@ -401,6 +416,9 @@ interface Port-Channel4
 | --------- | ----------- | --- | ---------- |
 | Loopback0 | EVPN_Overlay_Peering | default | 10.2.3.3/32 |
 | Loopback1 | VTEP_VXLAN_Tunnel_Source | default | 10.2.4.3/32 |
+| Loopback101 | RED_VTEP_DIAGNOSTICS | RED | 10.0.10.35/32 |
+| Loopback102 | BLUE_VTEP_DIAGNOSTICS | BLUE | 10.0.10.99/32 |
+| Loopback103 | GREEN_VTEP_DIAGNOSTICS | GREEN | 10.0.10.163/32 |
 
 #### IPv6
 
@@ -408,6 +426,9 @@ interface Port-Channel4
 | --------- | ----------- | --- | ------------ |
 | Loopback0 | EVPN_Overlay_Peering | default | - |
 | Loopback1 | VTEP_VXLAN_Tunnel_Source | default | - |
+| Loopback101 | RED_VTEP_DIAGNOSTICS | RED | - |
+| Loopback102 | BLUE_VTEP_DIAGNOSTICS | BLUE | - |
+| Loopback103 | GREEN_VTEP_DIAGNOSTICS | GREEN | - |
 
 
 ### Loopback Interfaces Device Configuration
@@ -423,6 +444,24 @@ interface Loopback1
    description VTEP_VXLAN_Tunnel_Source
    no shutdown
    ip address 10.2.4.3/32
+!
+interface Loopback101
+   description RED_VTEP_DIAGNOSTICS
+   no shutdown
+   vrf RED
+   ip address 10.0.10.35/32
+!
+interface Loopback102
+   description BLUE_VTEP_DIAGNOSTICS
+   no shutdown
+   vrf BLUE
+   ip address 10.0.10.99/32
+!
+interface Loopback103
+   description GREEN_VTEP_DIAGNOSTICS
+   no shutdown
+   vrf GREEN
+   ip address 10.0.10.163/32
 ```
 
 ## VLAN Interfaces
@@ -431,6 +470,9 @@ interface Loopback1
 
 | Interface | Description | VRF |  MTU | Shutdown |
 | --------- | ----------- | --- | ---- | -------- |
+| Vlan101 |  RED_VLAN_101  |  RED  |  -  |  false  |
+| Vlan202 |  BLUE_VLAN_202  |  BLUE  |  -  |  false  |
+| Vlan303 |  GREEN_VLAN_303  |  GREEN  |  -  |  false  |
 | Vlan4093 |  MLAG_PEER_L3_PEERING  |  default  |  9000  |  false  |
 | Vlan4094 |  MLAG_PEER  |  default  |  9000  |  false  |
 
@@ -438,6 +480,9 @@ interface Loopback1
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | VRRP | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ---- | ------ | ------- |
+| Vlan101 |  RED  |  -  |  10.100.101.1/24  |  -  |  -  |  -  |  -  |
+| Vlan202 |  BLUE  |  -  |  10.100.202.1/24  |  -  |  -  |  -  |  -  |
+| Vlan303 |  GREEN  |  -  |  10.100.303.1/24  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.2.5.4/31  |  -  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.2.6.4/31  |  -  |  -  |  -  |  -  |  -  |
 
@@ -445,6 +490,24 @@ interface Loopback1
 ### VLAN Interfaces Device Configuration
 
 ```eos
+!
+interface Vlan101
+   description RED_VLAN_101
+   no shutdown
+   vrf RED
+   ip address virtual 10.100.101.1/24
+!
+interface Vlan202
+   description BLUE_VLAN_202
+   no shutdown
+   vrf BLUE
+   ip address virtual 10.100.202.1/24
+!
+interface Vlan303
+   description GREEN_VLAN_303
+   no shutdown
+   vrf GREEN
+   ip address virtual 10.100.303.1/24
 !
 interface Vlan4093
    description MLAG_PEER_L3_PEERING
@@ -470,6 +533,22 @@ interface Vlan4094
 
 #### EVPN MLAG Shared Router MAC : mlag-system-id
 
+#### VLAN to VNI, Flood List and Multicast Group Mappings
+
+| VLAN | VNI | Flood List | Multicast Group |
+| ---- | --- | ---------- | --------------- |
+| 101 | 10101 | - | - |
+| 202 | 10202 | - | - |
+| 303 | 10303 | - | - |
+
+#### VRF to VNI and Multicast Group Mappings
+
+| VRF | VNI | Multicast Group |
+| ---- | --- | --------------- |
+| BLUE | 502 | - |
+| GREEN | 503 | - |
+| RED | 501 | - |
+
 ### VXLAN Interface Device Configuration
 
 ```eos
@@ -479,6 +558,12 @@ interface Vxlan1
    vxlan source-interface Loopback1
    vxlan virtual-router encapsulation mac-address mlag-system-id
    vxlan udp-port 4789
+   vxlan vlan 101 vni 10101
+   vxlan vlan 202 vni 10202
+   vxlan vlan 303 vni 10303
+   vxlan vrf BLUE vni 502
+   vxlan vrf GREEN vni 503
+   vxlan vrf RED vni 501
 ```
 
 # Routing
@@ -510,14 +595,20 @@ ip virtual-router mac-address 00:1c:73:00:00:34
 
 | VRF | Routing Enabled |
 | --- | --------------- |
-| default | true|| MGMT | false |
+| default | true|| BLUE | true |
+| GREEN | true |
+| MGMT | false |
+| RED | true |
 
 ### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+ip routing vrf BLUE
+ip routing vrf GREEN
 no ip routing vrf MGMT
+ip routing vrf RED
 ```
 ## IPv6 Routing
 
@@ -525,7 +616,10 @@ no ip routing vrf MGMT
 
 | VRF | Routing Enabled |
 | --- | --------------- |
-| default | false || MGMT | false |
+| default | false || BLUE | false |
+| GREEN | false |
+| MGMT | false |
+| RED | false |
 
 
 ## Static Routes
@@ -604,6 +698,22 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | ---------- | -------- |
 | EVPN-OVERLAY-PEERS | True |
 
+### Router BGP VLANs
+
+| VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
+| ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
+| 101 | 10.2.3.3:10101 | 10101:10101 | - | - | learned |
+| 202 | 10.2.3.3:10202 | 10202:10202 | - | - | learned |
+| 303 | 10.2.3.3:10303 | 10303:10303 | - | - | learned |
+
+### Router BGP VRFs
+
+| VRF | Route-Distinguisher | Redistribute |
+| --- | ------------------- | ------------ |
+| BLUE | 10.2.3.3:502 | connected |
+| GREEN | 10.2.3.3:503 | connected |
+| RED | 10.2.3.3:501 | connected |
+
 ### Router BGP Device Configuration
 
 ```eos
@@ -634,6 +744,21 @@ router bgp 65212
    neighbor 10.2.5.5 description s2-leaf4
    redistribute connected route-map RM-CONN-2-BGP
    !
+   vlan 101
+      rd 10.2.3.3:10101
+      route-target both 10101:10101
+      redistribute learned
+   !
+   vlan 202
+      rd 10.2.3.3:10202
+      route-target both 10202:10202
+      redistribute learned
+   !
+   vlan 303
+      rd 10.2.3.3:10303
+      route-target both 10303:10303
+      redistribute learned
+   !
    address-family evpn
       neighbor EVPN-OVERLAY-PEERS activate
    !
@@ -641,6 +766,27 @@ router bgp 65212
       no neighbor EVPN-OVERLAY-PEERS activate
       neighbor IPv4-UNDERLAY-PEERS activate
       neighbor MLAG-IPv4-UNDERLAY-PEER activate
+   !
+   vrf BLUE
+      rd 10.2.3.3:502
+      route-target import evpn 502:502
+      route-target export evpn 502:502
+      router-id 10.2.3.3
+      redistribute connected
+   !
+   vrf GREEN
+      rd 10.2.3.3:503
+      route-target import evpn 503:503
+      route-target export evpn 503:503
+      router-id 10.2.3.3
+      redistribute connected
+   !
+   vrf RED
+      rd 10.2.3.3:501
+      route-target import evpn 501:501
+      route-target export evpn 501:501
+      router-id 10.2.3.3
+      redistribute connected
 ```
 
 # BFD
@@ -733,13 +879,41 @@ route-map RM-MLAG-PEER-IN permit 10
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| BLUE | enabled |
+| GREEN | enabled |
 | MGMT | disabled |
+| RED | enabled |
 
 ## VRF Instances Device Configuration
 
 ```eos
 !
+vrf instance BLUE
+!
+vrf instance GREEN
+!
 vrf instance MGMT
+!
+vrf instance RED
+```
+
+# Virtual Source NAT
+
+## Virtual Source NAT Summary
+
+| Source NAT VRF | Source NAT IP Address |
+| -------------- | --------------------- |
+| BLUE | 10.0.10.99 |
+| GREEN | 10.0.10.163 |
+| RED | 10.0.10.35 |
+
+## Virtual Source NAT Configuration
+
+```eos
+!
+ip address virtual source-nat vrf BLUE address 10.0.10.99
+ip address virtual source-nat vrf GREEN address 10.0.10.163
+ip address virtual source-nat vrf RED address 10.0.10.35
 ```
 
 # Quality Of Service
