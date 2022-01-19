@@ -45,3 +45,11 @@ setupAAA: ## Run ansible playbook to Baseline CloudVision
 .PHONY: fabric-cleanup
 fabric-cleanup: ## Run ansible playbook to build Fabric configuration for ATD Fabric and CVP (will build configuration locally on your VS Code Instance)
 	ansible-playbook playbooks/fabric-cleanup.yml -i inventory.yml
+
+.PHONY: update-devel
+update-devel: ## Update to the latest arista.avd development branch
+	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
+
+.PHONY: update-collection
+update-collections: ## Update arista.avd collections to latest release branch
+	ansible-galaxy collection install arista.avd --upgrade
