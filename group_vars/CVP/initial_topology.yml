@@ -103,6 +103,7 @@ CVP_CONTAINERS_INIT:
     parentContainerName: Tenant
     configlets:
       - ATD-INFRA
+  Tenant:
 
 CVP_CONTAINERS_DELETE:
   S1-Leaf:
@@ -128,6 +129,4 @@ CVP_CONTAINERS_DELETE:
   S2-Hosts:
     parentContainerName: S2
   S2:
-    parentContainerName: Tenant
-  Hosts:
     parentContainerName: Tenant

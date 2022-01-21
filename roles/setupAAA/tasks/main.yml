@@ -15,3 +15,8 @@
   template:
     src: "{{lookup('env','PWD')}}/roles/templates/CVP_CRED.j2"
     dest: "{{lookup('env','PWD')}}/group_vars/CVP/CVP_CRED.yml"
+
+- name: Add EOS credentials
+  template:
+    src: "{{lookup('env','PWD')}}/roles/templates/CVP_CRED.j2"
+    dest: "{{lookup('env','PWD')}}/group_vars/EOS/EOS_CRED.yml"

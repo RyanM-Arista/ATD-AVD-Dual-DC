@@ -6,10 +6,6 @@
   gather_facts: no
   vars_prompt:
 
-      - name: ansible_user
-        prompt: What is your username?
-        private: no
-
       - name: ansible_password
         prompt: What is your lab password?
         confirm: yes

@@ -4,6 +4,14 @@
   hosts: ATD_CVP
   connection: local
   gather_facts: no
+  vars_prompt:
+
+      # - name: ansible_user
+      #   prompt: What is your username?
+      #   private: no
+
+      # - name: ansible_password
+      #   prompt: What is your password?
 
   tasks:
 
