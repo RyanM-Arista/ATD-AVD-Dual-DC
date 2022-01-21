@@ -1,0 +1,12 @@
+---
+
+- name: Reset devices and containers
+  hosts: ATD_CVP
+  connection: local
+  gather_facts: no
+
+  tasks:
+
+    - name: "Reset ATD lab to initial state"
+      import_role:
+        name: 'atd-init'
