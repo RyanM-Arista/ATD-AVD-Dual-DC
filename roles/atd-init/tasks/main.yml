@@ -21,7 +21,7 @@
 
 - name: "Refresh Containers topology on {{inventory_hostname}}"
   tags: [provision, apply]
-  apply_mode: strict
+  #apply_mode: strict
   arista.cvp.cv_container_v3:
     topology: '{{CVP_CONTAINERS_DELETE}}'
     state: absent
