@@ -38,9 +38,9 @@ initial-deploy: ## Deploy Fabric configuration for ATD Fabric using SSH/eAPI (By
 update-configlet: ## Run ansible playbook to update configlets on CloudVision
 	ansible-playbook playbooks/fabric-cvp-deploy.yml --tags provision --skip-tags containers,apply -i inventory.yml
 
-.PHONY: atd-initialize
-atd-initialize: ## Run ansible playbook to Baseline CloudVision
-	ansible-playbook playbooks/atd-init.yml
+.PHONY: atd-setup
+atd-setup: ## Run ansible playbook to Setup ATD Environment
+	ansible-playbook playbooks/atd-setup.yml
 
 .PHONY: fabric-cleanup
 fabric-cleanup: ## Run ansible playbook to build Fabric configuration for ATD Fabric and CVP (will build configuration locally on your VS Code Instance)
