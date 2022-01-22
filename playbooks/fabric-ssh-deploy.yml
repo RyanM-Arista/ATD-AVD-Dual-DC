@@ -11,6 +11,8 @@
 
   vars_prompt:
 
+  #Enable vars_prompt to ask for user:pass
+
       # - name: ansible_user
       #   prompt: What is your username?
       #   private: no

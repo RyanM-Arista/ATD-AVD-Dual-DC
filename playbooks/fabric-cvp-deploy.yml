@@ -4,7 +4,8 @@
   hosts: ATD_CVP
   connection: local
   gather_facts: no
-  vars_prompt:
+  #Enable vars_prompt to ask for user:pass
+  #vars_prompt:
 
       # - name: ansible_user
       #   prompt: What is your username?

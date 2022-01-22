@@ -2,14 +2,15 @@
 
 - name: Validate state of ATD Fabric
   hosts: ATD_FABRIC
-  vars_prompt:
+  #Enable vars_prompt to ask for user:pass
+  #vars_prompt:
 
       # - name: ansible_user
       #   prompt: What is your username?
       #   private: no
 
-      - name: ansible_password
-        prompt: What is your password?
+      # - name: ansible_password
+      #   prompt: What is your password?
 
   tasks:
 
