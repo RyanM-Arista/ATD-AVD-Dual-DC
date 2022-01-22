@@ -39,7 +39,7 @@ update-configlet: ## Run ansible playbook to update configlets on CloudVision
 	ansible-playbook playbooks/fabric-cvp-deploy.yml --tags provision --skip-tags containers,apply -i inventory.yml
 
 .PHONY: atd-initialize
-setupAAA: ## Run ansible playbook to Baseline CloudVision
+atd-initialize: ## Run ansible playbook to Baseline CloudVision
 	ansible-playbook playbooks/atd-init.yml
 
 .PHONY: fabric-cleanup
