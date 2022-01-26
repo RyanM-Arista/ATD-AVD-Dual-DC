@@ -29,6 +29,8 @@
   - [IPv6 Routing](#ipv6-routing)
   - [Static Routes](#static-routes)
   - [Router BGP](#router-bgp)
+- [BFD](#bfd)
+  - [Router BFD](#router-bfd)
 - [Multicast](#multicast)
 - [Filters](#filters)
   - [Prefix-lists](#prefix-lists)
@@ -371,6 +373,18 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 
 ### Router BGP Peer Groups
 
+#### EVPN-OVERLAY-PEERS
+
+| Settings | Value |
+| -------- | ----- |
+| Address Family | evpn |
+| Next-hop unchanged | True |
+| Source | Loopback0 |
+| Bfd | true |
+| Ebgp multihop | 3 |
+| Send community | all |
+| Maximum routes | 0 (no limit) |
+
 #### IPv4-UNDERLAY-PEERS
 
 | Settings | Value |
@@ -378,6 +392,25 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | Address Family | ipv4 |
 | Send community | all |
 | Maximum routes | 12000 |
+
+### BGP Neighbors
+
+| Neighbor | Remote AS | VRF | Send-community | Maximum-routes | Allowas-in |
+| -------- | --------- | --- | -------------- | -------------- | ---------- |
+| 10.1.3.1 | 65111 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.3.2 | 65111 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.3.3 | 65112 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.3.4 | 65112 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.3.5 | 65113 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.3.6 | 65113 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+
+### Router BGP EVPN Address Family
+
+#### EVPN Peer Groups
+
+| Peer Group | Activate |
+| ---------- | -------- |
+| EVPN-OVERLAY-PEERS | True |
 
 ### Router BGP Device Configuration
 
@@ -390,13 +423,60 @@ router bgp 65101
    no bgp default ipv4-unicast
    distance bgp 20 200 200
    maximum-paths 4 ecmp 4
+   neighbor EVPN-OVERLAY-PEERS peer group
+   neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
+   neighbor EVPN-OVERLAY-PEERS update-source Loopback0
+   neighbor EVPN-OVERLAY-PEERS bfd
+   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 3
+   neighbor EVPN-OVERLAY-PEERS send-community
+   neighbor EVPN-OVERLAY-PEERS maximum-routes 0
    neighbor IPv4-UNDERLAY-PEERS peer group
    neighbor IPv4-UNDERLAY-PEERS send-community
    neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
+   neighbor 10.1.3.1 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.1 remote-as 65111
+   neighbor 10.1.3.1 description s1-leaf1
+   neighbor 10.1.3.2 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.2 remote-as 65111
+   neighbor 10.1.3.2 description s1-leaf2
+   neighbor 10.1.3.3 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.3 remote-as 65112
+   neighbor 10.1.3.3 description s1-leaf3
+   neighbor 10.1.3.4 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.4 remote-as 65112
+   neighbor 10.1.3.4 description s1-leaf4
+   neighbor 10.1.3.5 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.5 remote-as 65113
+   neighbor 10.1.3.5 description s1-brdr1
+   neighbor 10.1.3.6 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.6 remote-as 65113
+   neighbor 10.1.3.6 description s1-brdr2
    redistribute connected route-map RM-CONN-2-BGP
    !
+   address-family evpn
+      neighbor EVPN-OVERLAY-PEERS activate
+   !
    address-family ipv4
+      no neighbor EVPN-OVERLAY-PEERS activate
       neighbor IPv4-UNDERLAY-PEERS activate
+```
+
+# BFD
+
+## Router BFD
+
+### Router BFD Multihop Summary
+
+| Interval | Minimum RX | Multiplier |
+| -------- | ---------- | ---------- |
+| 300 | 300 | 3 |
+
+### Router BFD Device Configuration
+
+```eos
+!
+router bfd
+   multihop interval 300 min-rx 300 multiplier 3
 ```
 
 # Multicast

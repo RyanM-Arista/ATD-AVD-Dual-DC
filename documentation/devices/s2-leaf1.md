@@ -711,6 +711,8 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 
 | Neighbor | Remote AS | VRF | Send-community | Maximum-routes | Allowas-in |
 | -------- | --------- | --- | -------------- | -------------- | ---------- |
+| 10.1.0.1 | 65201 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
+| 10.1.0.2 | 65201 | default | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - |
 | 10.2.5.1 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | - |
 
 ### Router BGP EVPN Address Family
@@ -721,13 +723,13 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | ---------- | -------- |
 | EVPN-OVERLAY-PEERS | True |
 
-### Router BGP VLANs
+### Router BGP VLAN Aware Bundles
 
-| VLAN | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute |
-| ---- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ |
-| 101 | 10.2.3.1:10101 | 10101:10101 | - | - | learned |
-| 202 | 10.2.3.1:10202 | 10202:10202 | - | - | learned |
-| 303 | 10.2.3.1:10303 | 10303:10303 | - | - | learned |
+| VLAN Aware Bundle | Route-Distinguisher | Both Route-Target | Import Route Target | Export Route-Target | Redistribute | VLANs |
+| ----------------- | ------------------- | ----------------- | ------------------- | ------------------- | ------------ | ----- |
+| BLUE | 10.2.3.1:502 | 502:502 | - | - | learned | 202 |
+| GREEN | 10.2.3.1:503 | 503:503 | - | - | learned | 303 |
+| RED | 10.2.3.1:501 | 501:501 | - | - | learned | 101 |
 
 ### Router BGP VRFs
 
@@ -763,24 +765,33 @@ router bgp 65211
    neighbor MLAG-IPv4-UNDERLAY-PEER send-community
    neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000
    neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in
+   neighbor 10.1.0.1 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.0.1 remote-as 65201
+   neighbor 10.1.0.1 description s2-spine1
+   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.0.2 remote-as 65201
+   neighbor 10.1.0.2 description s2-spine2
    neighbor 10.2.5.1 peer group MLAG-IPv4-UNDERLAY-PEER
    neighbor 10.2.5.1 description s2-leaf2
    redistribute connected route-map RM-CONN-2-BGP
    !
-   vlan 101
-      rd 10.2.3.1:10101
-      route-target both 10101:10101
+   vlan-aware-bundle BLUE
+      rd 10.2.3.1:502
+      route-target both 502:502
       redistribute learned
+      vlan 202
    !
-   vlan 202
-      rd 10.2.3.1:10202
-      route-target both 10202:10202
+   vlan-aware-bundle GREEN
+      rd 10.2.3.1:503
+      route-target both 503:503
       redistribute learned
+      vlan 303
    !
-   vlan 303
-      rd 10.2.3.1:10303
-      route-target both 10303:10303
+   vlan-aware-bundle RED
+      rd 10.2.3.1:501
+      route-target both 501:501
       redistribute learned
+      vlan 101
    !
    address-family evpn
       neighbor EVPN-OVERLAY-PEERS activate

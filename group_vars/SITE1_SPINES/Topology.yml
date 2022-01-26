@@ -7,7 +7,7 @@ spine:
   defaults:
     platform: ceos
     bgp_as: 65101
-    evpn_role: none
+    #evpn_role: none
     loopback_ipv4_pool: 10.0.0.0/24
     bgp_defaults: "{{ atd_bgp_defaults }}"
   nodes:

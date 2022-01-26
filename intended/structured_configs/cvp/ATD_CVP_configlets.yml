@@ -66,24 +66,29 @@ CVP_CONFIGLETS:
     \ 65113\n   neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
     \ send-community\n   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n \
     \  neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in\n   neighbor\
-    \ 10.1.5.9 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.9 description\
-    \ s1-brdr2\n   redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan 101\n\
-    \      rd 10.1.3.5:10101\n      route-target both 10101:10101\n      redistribute\
-    \ learned\n   !\n   vlan 202\n      rd 10.1.3.5:10202\n      route-target both\
-    \ 10202:10202\n      redistribute learned\n   !\n   vlan 303\n      rd 10.1.3.5:10303\n\
-    \      route-target both 10303:10303\n      redistribute learned\n   !\n   address-family\
-    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
-    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
-    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
-    \      rd 10.1.3.5:502\n      route-target import evpn 502:502\n      route-target\
-    \ export evpn 502:502\n      router-id 10.1.3.5\n      redistribute connected\n\
-    \   !\n   vrf GREEN\n      rd 10.1.3.5:503\n      route-target import evpn 503:503\n\
-    \      route-target export evpn 503:503\n      router-id 10.1.3.5\n      redistribute\
-    \ connected\n   !\n   vrf RED\n      rd 10.1.3.5:501\n      route-target import\
-    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.5\n\
-    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
-    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
-    \ MGMT\n      no shutdown\n!\nend\n"
+    \ 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.1 remote-as 65101\n\
+    \   neighbor 10.0.0.1 description s1-spine1\n   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.2 remote-as 65101\n   neighbor 10.0.0.2 description s1-spine2\n\
+    \   neighbor 10.1.5.9 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.9\
+    \ description s1-brdr2\n   redistribute connected route-map RM-CONN-2-BGP\n  \
+    \ !\n   vlan-aware-bundle BLUE\n      rd 10.1.3.5:502\n      route-target both\
+    \ 502:502\n      redistribute learned\n      vlan 202\n   !\n   vlan-aware-bundle\
+    \ GREEN\n      rd 10.1.3.5:503\n      route-target both 503:503\n      redistribute\
+    \ learned\n      vlan 303\n   !\n   vlan-aware-bundle RED\n      rd 10.1.3.5:501\n\
+    \      route-target both 501:501\n      redistribute learned\n      vlan 101\n\
+    \   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n  \
+    \ !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n \
+    \     neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
+    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.5:502\n      route-target import\
+    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.5\n\
+    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.5:503\n   \
+    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
+    \      router-id 10.1.3.5\n      redistribute connected\n   !\n   vrf RED\n  \
+    \    rd 10.1.3.5:501\n      route-target import evpn 501:501\n      route-target\
+    \ export evpn 501:501\n      router-id 10.1.3.5\n      redistribute connected\n\
+    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
   AVD_s1-brdr2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -151,24 +156,29 @@ CVP_CONFIGLETS:
     \ 65113\n   neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
     \ send-community\n   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n \
     \  neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in\n   neighbor\
-    \ 10.1.5.8 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.8 description\
-    \ s1-brdr1\n   redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan 101\n\
-    \      rd 10.1.3.6:10101\n      route-target both 10101:10101\n      redistribute\
-    \ learned\n   !\n   vlan 202\n      rd 10.1.3.6:10202\n      route-target both\
-    \ 10202:10202\n      redistribute learned\n   !\n   vlan 303\n      rd 10.1.3.6:10303\n\
-    \      route-target both 10303:10303\n      redistribute learned\n   !\n   address-family\
-    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
-    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
-    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
-    \      rd 10.1.3.6:502\n      route-target import evpn 502:502\n      route-target\
-    \ export evpn 502:502\n      router-id 10.1.3.6\n      redistribute connected\n\
-    \   !\n   vrf GREEN\n      rd 10.1.3.6:503\n      route-target import evpn 503:503\n\
-    \      route-target export evpn 503:503\n      router-id 10.1.3.6\n      redistribute\
-    \ connected\n   !\n   vrf RED\n      rd 10.1.3.6:501\n      route-target import\
-    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.6\n\
-    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
-    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
-    \ MGMT\n      no shutdown\n!\nend\n"
+    \ 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.1 remote-as 65101\n\
+    \   neighbor 10.0.0.1 description s1-spine1\n   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.2 remote-as 65101\n   neighbor 10.0.0.2 description s1-spine2\n\
+    \   neighbor 10.1.5.8 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.8\
+    \ description s1-brdr1\n   redistribute connected route-map RM-CONN-2-BGP\n  \
+    \ !\n   vlan-aware-bundle BLUE\n      rd 10.1.3.6:502\n      route-target both\
+    \ 502:502\n      redistribute learned\n      vlan 202\n   !\n   vlan-aware-bundle\
+    \ GREEN\n      rd 10.1.3.6:503\n      route-target both 503:503\n      redistribute\
+    \ learned\n      vlan 303\n   !\n   vlan-aware-bundle RED\n      rd 10.1.3.6:501\n\
+    \      route-target both 501:501\n      redistribute learned\n      vlan 101\n\
+    \   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n  \
+    \ !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n \
+    \     neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
+    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.6:502\n      route-target import\
+    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.6\n\
+    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.6:503\n   \
+    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
+    \      router-id 10.1.3.6\n      redistribute connected\n   !\n   vrf RED\n  \
+    \    rd 10.1.3.6:501\n      route-target import evpn 501:501\n      route-target\
+    \ export evpn 501:501\n      router-id 10.1.3.6\n      redistribute connected\n\
+    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
   AVD_s1-core1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -398,25 +408,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65111\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.5.1 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.1.5.1 description s1-leaf2\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.1.3.1:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.1.3.1:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.1.3.1:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.1:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.1\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.1:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.1.3.1\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.1.3.1:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.1.3.1\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.1 remote-as 65101\n   neighbor 10.0.0.1 description s1-spine1\n\
+    \   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.2 remote-as\
+    \ 65101\n   neighbor 10.0.0.2 description s1-spine2\n   neighbor 10.1.5.1 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.1 description s1-leaf2\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.1.3.1:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.1.3.1:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.1.3.1:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.1.3.1:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.1.3.1\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.1.3.1:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.1.3.1\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.1.3.1:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.1\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-leaf2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -486,25 +500,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65111\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.5.0 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.1.5.0 description s1-leaf1\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.1.3.2:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.1.3.2:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.1.3.2:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.2:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.2\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.2:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.1.3.2\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.1.3.2:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.1.3.2\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.1 remote-as 65101\n   neighbor 10.0.0.1 description s1-spine1\n\
+    \   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.2 remote-as\
+    \ 65101\n   neighbor 10.0.0.2 description s1-spine2\n   neighbor 10.1.5.0 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.0 description s1-leaf1\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.1.3.2:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.1.3.2:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.1.3.2:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.1.3.2:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.1.3.2\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.1.3.2:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.1.3.2\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.1.3.2:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.2\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-leaf3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -574,25 +592,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65112\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.5.5 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.1.5.5 description s1-leaf4\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.1.3.3:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.1.3.3:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.1.3.3:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.3:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.3\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.3:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.1.3.3\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.1.3.3:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.1.3.3\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.1 remote-as 65101\n   neighbor 10.0.0.1 description s1-spine1\n\
+    \   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.2 remote-as\
+    \ 65101\n   neighbor 10.0.0.2 description s1-spine2\n   neighbor 10.1.5.5 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.5 description s1-leaf4\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.1.3.3:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.1.3.3:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.1.3.3:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.1.3.3:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.1.3.3\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.1.3.3:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.1.3.3\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.1.3.3:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.3\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-leaf4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -662,25 +684,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65112\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.5.4 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.1.5.4 description s1-leaf3\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.1.3.4:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.1.3.4:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.1.3.4:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.1.3.4:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.1.3.4\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.1.3.4:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.1.3.4\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.1.3.4:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.1.3.4\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.0.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.0.0.1 remote-as 65101\n   neighbor 10.0.0.1 description s1-spine1\n\
+    \   neighbor 10.0.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.0.0.2 remote-as\
+    \ 65101\n   neighbor 10.0.0.2 description s1-spine2\n   neighbor 10.1.5.4 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.1.5.4 description s1-leaf3\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.1.3.4:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.1.3.4:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.1.3.4:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.1.3.4:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.1.3.4\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.1.3.4:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.1.3.4\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.1.3.4:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.1.3.4\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-spine1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -699,15 +725,30 @@ CVP_CONFIGLETS:
     !\nip routing\nno ip routing vrf MGMT\n!\nip prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
     \   seq 10 permit 10.0.0.0/24 eq 32\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n\
     !\nroute-map RM-CONN-2-BGP permit 10\n   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
-    !\nrouter bgp 65101\n   router-id 10.0.0.1\n   update wait-for-convergence\n \
-    \  update wait-install\n   no bgp default ipv4-unicast\n   distance bgp 20 200\
-    \ 200\n   maximum-paths 4 ecmp 4\n   neighbor IPv4-UNDERLAY-PEERS peer group\n\
-    \   neighbor IPv4-UNDERLAY-PEERS send-community\n   neighbor IPv4-UNDERLAY-PEERS\
-    \ maximum-routes 12000\n   redistribute connected route-map RM-CONN-2-BGP\n  \
-    \ !\n   address-family ipv4\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\n\
-    ip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    !\nrouter bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp\
+    \ 65101\n   router-id 10.0.0.1\n   update wait-for-convergence\n   update wait-install\n\
+    \   no bgp default ipv4-unicast\n   distance bgp 20 200 200\n   maximum-paths\
+    \ 4 ecmp 4\n   neighbor EVPN-OVERLAY-PEERS peer group\n   neighbor EVPN-OVERLAY-PEERS\
+    \ next-hop-unchanged\n   neighbor EVPN-OVERLAY-PEERS update-source Loopback0\n\
+    \   neighbor EVPN-OVERLAY-PEERS bfd\n   neighbor EVPN-OVERLAY-PEERS ebgp-multihop\
+    \ 3\n   neighbor EVPN-OVERLAY-PEERS send-community\n   neighbor EVPN-OVERLAY-PEERS\
+    \ maximum-routes 0\n   neighbor IPv4-UNDERLAY-PEERS peer group\n   neighbor IPv4-UNDERLAY-PEERS\
+    \ send-community\n   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000\n   neighbor\
+    \ 10.1.3.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.1 remote-as 65111\n\
+    \   neighbor 10.1.3.1 description s1-leaf1\n   neighbor 10.1.3.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.3.2 remote-as 65111\n   neighbor 10.1.3.2 description s1-leaf2\n\
+    \   neighbor 10.1.3.3 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.3 remote-as\
+    \ 65112\n   neighbor 10.1.3.3 description s1-leaf3\n   neighbor 10.1.3.4 peer\
+    \ group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.4 remote-as 65112\n   neighbor\
+    \ 10.1.3.4 description s1-leaf4\n   neighbor 10.1.3.5 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.3.5 remote-as 65113\n   neighbor 10.1.3.5 description s1-brdr1\n\
+    \   neighbor 10.1.3.6 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.6 remote-as\
+    \ 65113\n   neighbor 10.1.3.6 description s1-brdr2\n   redistribute connected\
+    \ route-map RM-CONN-2-BGP\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\nip radius vrf MGMT\
+    \ source-interface Management0\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s1-spine2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -726,15 +767,30 @@ CVP_CONFIGLETS:
     !\nip routing\nno ip routing vrf MGMT\n!\nip prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
     \   seq 10 permit 10.0.0.0/24 eq 32\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n\
     !\nroute-map RM-CONN-2-BGP permit 10\n   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
-    !\nrouter bgp 65101\n   router-id 10.0.0.2\n   update wait-for-convergence\n \
-    \  update wait-install\n   no bgp default ipv4-unicast\n   distance bgp 20 200\
-    \ 200\n   maximum-paths 4 ecmp 4\n   neighbor IPv4-UNDERLAY-PEERS peer group\n\
-    \   neighbor IPv4-UNDERLAY-PEERS send-community\n   neighbor IPv4-UNDERLAY-PEERS\
-    \ maximum-routes 12000\n   redistribute connected route-map RM-CONN-2-BGP\n  \
-    \ !\n   address-family ipv4\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\n\
-    ip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    !\nrouter bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp\
+    \ 65101\n   router-id 10.0.0.2\n   update wait-for-convergence\n   update wait-install\n\
+    \   no bgp default ipv4-unicast\n   distance bgp 20 200 200\n   maximum-paths\
+    \ 4 ecmp 4\n   neighbor EVPN-OVERLAY-PEERS peer group\n   neighbor EVPN-OVERLAY-PEERS\
+    \ next-hop-unchanged\n   neighbor EVPN-OVERLAY-PEERS update-source Loopback0\n\
+    \   neighbor EVPN-OVERLAY-PEERS bfd\n   neighbor EVPN-OVERLAY-PEERS ebgp-multihop\
+    \ 3\n   neighbor EVPN-OVERLAY-PEERS send-community\n   neighbor EVPN-OVERLAY-PEERS\
+    \ maximum-routes 0\n   neighbor IPv4-UNDERLAY-PEERS peer group\n   neighbor IPv4-UNDERLAY-PEERS\
+    \ send-community\n   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000\n   neighbor\
+    \ 10.1.3.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.1 remote-as 65111\n\
+    \   neighbor 10.1.3.1 description s1-leaf1\n   neighbor 10.1.3.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.3.2 remote-as 65111\n   neighbor 10.1.3.2 description s1-leaf2\n\
+    \   neighbor 10.1.3.3 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.3 remote-as\
+    \ 65112\n   neighbor 10.1.3.3 description s1-leaf3\n   neighbor 10.1.3.4 peer\
+    \ group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.4 remote-as 65112\n   neighbor\
+    \ 10.1.3.4 description s1-leaf4\n   neighbor 10.1.3.5 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.3.5 remote-as 65113\n   neighbor 10.1.3.5 description s1-brdr1\n\
+    \   neighbor 10.1.3.6 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.3.6 remote-as\
+    \ 65113\n   neighbor 10.1.3.6 description s1-brdr2\n   redistribute connected\
+    \ route-map RM-CONN-2-BGP\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\nip radius vrf MGMT\
+    \ source-interface Management0\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-brdr1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -802,24 +858,29 @@ CVP_CONFIGLETS:
     \ 65213\n   neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
     \ send-community\n   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n \
     \  neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in\n   neighbor\
-    \ 10.2.5.9 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.9 description\
-    \ s2-brdr2\n   redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan 101\n\
-    \      rd 10.2.3.5:10101\n      route-target both 10101:10101\n      redistribute\
-    \ learned\n   !\n   vlan 202\n      rd 10.2.3.5:10202\n      route-target both\
-    \ 10202:10202\n      redistribute learned\n   !\n   vlan 303\n      rd 10.2.3.5:10303\n\
-    \      route-target both 10303:10303\n      redistribute learned\n   !\n   address-family\
-    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
-    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
-    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
-    \      rd 10.2.3.5:502\n      route-target import evpn 502:502\n      route-target\
-    \ export evpn 502:502\n      router-id 10.2.3.5\n      redistribute connected\n\
-    \   !\n   vrf GREEN\n      rd 10.2.3.5:503\n      route-target import evpn 503:503\n\
-    \      route-target export evpn 503:503\n      router-id 10.2.3.5\n      redistribute\
-    \ connected\n   !\n   vrf RED\n      rd 10.2.3.5:501\n      route-target import\
-    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.5\n\
-    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
-    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
-    \ MGMT\n      no shutdown\n!\nend\n"
+    \ 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.1 remote-as 65201\n\
+    \   neighbor 10.1.0.1 description s2-spine1\n   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.2 remote-as 65201\n   neighbor 10.1.0.2 description s2-spine2\n\
+    \   neighbor 10.2.5.9 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.9\
+    \ description s2-brdr2\n   redistribute connected route-map RM-CONN-2-BGP\n  \
+    \ !\n   vlan-aware-bundle BLUE\n      rd 10.2.3.5:502\n      route-target both\
+    \ 502:502\n      redistribute learned\n      vlan 202\n   !\n   vlan-aware-bundle\
+    \ GREEN\n      rd 10.2.3.5:503\n      route-target both 503:503\n      redistribute\
+    \ learned\n      vlan 303\n   !\n   vlan-aware-bundle RED\n      rd 10.2.3.5:501\n\
+    \      route-target both 501:501\n      redistribute learned\n      vlan 101\n\
+    \   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n  \
+    \ !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n \
+    \     neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
+    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.5:502\n      route-target import\
+    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.5\n\
+    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.5:503\n   \
+    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
+    \      router-id 10.2.3.5\n      redistribute connected\n   !\n   vrf RED\n  \
+    \    rd 10.2.3.5:501\n      route-target import evpn 501:501\n      route-target\
+    \ export evpn 501:501\n      router-id 10.2.3.5\n      redistribute connected\n\
+    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
   AVD_s2-brdr2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -887,24 +948,29 @@ CVP_CONFIGLETS:
     \ 65213\n   neighbor MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
     \ send-community\n   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n \
     \  neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in\n   neighbor\
-    \ 10.2.5.8 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.8 description\
-    \ s2-brdr1\n   redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan 101\n\
-    \      rd 10.2.3.6:10101\n      route-target both 10101:10101\n      redistribute\
-    \ learned\n   !\n   vlan 202\n      rd 10.2.3.6:10202\n      route-target both\
-    \ 10202:10202\n      redistribute learned\n   !\n   vlan 303\n      rd 10.2.3.6:10303\n\
-    \      route-target both 10303:10303\n      redistribute learned\n   !\n   address-family\
-    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
-    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
-    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
-    \      rd 10.2.3.6:502\n      route-target import evpn 502:502\n      route-target\
-    \ export evpn 502:502\n      router-id 10.2.3.6\n      redistribute connected\n\
-    \   !\n   vrf GREEN\n      rd 10.2.3.6:503\n      route-target import evpn 503:503\n\
-    \      route-target export evpn 503:503\n      router-id 10.2.3.6\n      redistribute\
-    \ connected\n   !\n   vrf RED\n      rd 10.2.3.6:501\n      route-target import\
-    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.6\n\
-    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
-    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
-    \ MGMT\n      no shutdown\n!\nend\n"
+    \ 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.1 remote-as 65201\n\
+    \   neighbor 10.1.0.1 description s2-spine1\n   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.2 remote-as 65201\n   neighbor 10.1.0.2 description s2-spine2\n\
+    \   neighbor 10.2.5.8 peer group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.8\
+    \ description s2-brdr1\n   redistribute connected route-map RM-CONN-2-BGP\n  \
+    \ !\n   vlan-aware-bundle BLUE\n      rd 10.2.3.6:502\n      route-target both\
+    \ 502:502\n      redistribute learned\n      vlan 202\n   !\n   vlan-aware-bundle\
+    \ GREEN\n      rd 10.2.3.6:503\n      route-target both 503:503\n      redistribute\
+    \ learned\n      vlan 303\n   !\n   vlan-aware-bundle RED\n      rd 10.2.3.6:501\n\
+    \      route-target both 501:501\n      redistribute learned\n      vlan 101\n\
+    \   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n  \
+    \ !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n \
+    \     neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
+    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.6:502\n      route-target import\
+    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.6\n\
+    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.6:503\n   \
+    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
+    \      router-id 10.2.3.6\n      redistribute connected\n   !\n   vrf RED\n  \
+    \    rd 10.2.3.6:501\n      route-target import evpn 501:501\n      route-target\
+    \ export evpn 501:501\n      router-id 10.2.3.6\n      redistribute connected\n\
+    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
   AVD_s2-core1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1134,25 +1200,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65211\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.2.5.1 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.2.5.1 description s2-leaf2\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.2.3.1:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.2.3.1:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.2.3.1:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.1:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.1\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.1:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.2.3.1\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.2.3.1:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.2.3.1\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.1 remote-as 65201\n   neighbor 10.1.0.1 description s2-spine1\n\
+    \   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.2 remote-as\
+    \ 65201\n   neighbor 10.1.0.2 description s2-spine2\n   neighbor 10.2.5.1 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.1 description s2-leaf2\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.2.3.1:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.2.3.1:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.2.3.1:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.2.3.1:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.2.3.1\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.2.3.1:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.2.3.1\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.2.3.1:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.1\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-leaf2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1222,25 +1292,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65211\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.2.5.0 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.2.5.0 description s2-leaf1\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.2.3.2:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.2.3.2:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.2.3.2:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.2:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.2\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.2:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.2.3.2\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.2.3.2:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.2.3.2\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.1 remote-as 65201\n   neighbor 10.1.0.1 description s2-spine1\n\
+    \   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.2 remote-as\
+    \ 65201\n   neighbor 10.1.0.2 description s2-spine2\n   neighbor 10.2.5.0 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.0 description s2-leaf1\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.2.3.2:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.2.3.2:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.2.3.2:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.2.3.2:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.2.3.2\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.2.3.2:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.2.3.2\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.2.3.2:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.2\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-leaf3: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1310,25 +1384,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65212\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.2.5.5 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.2.5.5 description s2-leaf4\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.2.3.3:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.2.3.3:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.2.3.3:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.3:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.3\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.3:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.2.3.3\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.2.3.3:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.2.3.3\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.1 remote-as 65201\n   neighbor 10.1.0.1 description s2-spine1\n\
+    \   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.2 remote-as\
+    \ 65201\n   neighbor 10.1.0.2 description s2-spine2\n   neighbor 10.2.5.5 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.5 description s2-leaf4\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.2.3.3:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.2.3.3:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.2.3.3:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.2.3.3:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.2.3.3\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.2.3.3:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.2.3.3\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.2.3.3:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.3\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-leaf4: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1398,25 +1476,29 @@ CVP_CONFIGLETS:
     \ peer group\n   neighbor MLAG-IPv4-UNDERLAY-PEER remote-as 65212\n   neighbor\
     \ MLAG-IPv4-UNDERLAY-PEER next-hop-self\n   neighbor MLAG-IPv4-UNDERLAY-PEER send-community\n\
     \   neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000\n   neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.2.5.4 peer group MLAG-IPv4-UNDERLAY-PEER\n\
-    \   neighbor 10.2.5.4 description s2-leaf3\n   redistribute connected route-map\
-    \ RM-CONN-2-BGP\n   !\n   vlan 101\n      rd 10.2.3.4:10101\n      route-target\
-    \ both 10101:10101\n      redistribute learned\n   !\n   vlan 202\n      rd 10.2.3.4:10202\n\
-    \      route-target both 10202:10202\n      redistribute learned\n   !\n   vlan\
-    \ 303\n      rd 10.2.3.4:10303\n      route-target both 10303:10303\n      redistribute\
-    \ learned\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n\
-    \   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS activate\n\
-    \      neighbor IPv4-UNDERLAY-PEERS activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER\
-    \ activate\n   !\n   vrf BLUE\n      rd 10.2.3.4:502\n      route-target import\
-    \ evpn 502:502\n      route-target export evpn 502:502\n      router-id 10.2.3.4\n\
-    \      redistribute connected\n   !\n   vrf GREEN\n      rd 10.2.3.4:503\n   \
-    \   route-target import evpn 503:503\n      route-target export evpn 503:503\n\
-    \      router-id 10.2.3.4\n      redistribute connected\n   !\n   vrf RED\n  \
-    \    rd 10.2.3.4:501\n      route-target import evpn 501:501\n      route-target\
-    \ export evpn 501:501\n      router-id 10.2.3.4\n      redistribute connected\n\
-    !\nip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    \ route-map RM-MLAG-PEER-IN in\n   neighbor 10.1.0.1 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.1.0.1 remote-as 65201\n   neighbor 10.1.0.1 description s2-spine1\n\
+    \   neighbor 10.1.0.2 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.1.0.2 remote-as\
+    \ 65201\n   neighbor 10.1.0.2 description s2-spine2\n   neighbor 10.2.5.4 peer\
+    \ group MLAG-IPv4-UNDERLAY-PEER\n   neighbor 10.2.5.4 description s2-leaf3\n \
+    \  redistribute connected route-map RM-CONN-2-BGP\n   !\n   vlan-aware-bundle\
+    \ BLUE\n      rd 10.2.3.4:502\n      route-target both 502:502\n      redistribute\
+    \ learned\n      vlan 202\n   !\n   vlan-aware-bundle GREEN\n      rd 10.2.3.4:503\n\
+    \      route-target both 503:503\n      redistribute learned\n      vlan 303\n\
+    \   !\n   vlan-aware-bundle RED\n      rd 10.2.3.4:501\n      route-target both\
+    \ 501:501\n      redistribute learned\n      vlan 101\n   !\n   address-family\
+    \ evpn\n      neighbor EVPN-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n\
+    \      no neighbor EVPN-OVERLAY-PEERS activate\n      neighbor IPv4-UNDERLAY-PEERS\
+    \ activate\n      neighbor MLAG-IPv4-UNDERLAY-PEER activate\n   !\n   vrf BLUE\n\
+    \      rd 10.2.3.4:502\n      route-target import evpn 502:502\n      route-target\
+    \ export evpn 502:502\n      router-id 10.2.3.4\n      redistribute connected\n\
+    \   !\n   vrf GREEN\n      rd 10.2.3.4:503\n      route-target import evpn 503:503\n\
+    \      route-target export evpn 503:503\n      router-id 10.2.3.4\n      redistribute\
+    \ connected\n   !\n   vrf RED\n      rd 10.2.3.4:501\n      route-target import\
+    \ evpn 501:501\n      route-target export evpn 501:501\n      router-id 10.2.3.4\n\
+    \      redistribute connected\n!\nip radius vrf MGMT source-interface Management0\n\
+    !\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-spine1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1435,15 +1517,30 @@ CVP_CONFIGLETS:
     !\nip routing\nno ip routing vrf MGMT\n!\nip prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
     \   seq 10 permit 10.1.0.0/24 eq 32\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n\
     !\nroute-map RM-CONN-2-BGP permit 10\n   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
-    !\nrouter bgp 65201\n   router-id 10.1.0.1\n   update wait-for-convergence\n \
-    \  update wait-install\n   no bgp default ipv4-unicast\n   distance bgp 20 200\
-    \ 200\n   maximum-paths 4 ecmp 4\n   neighbor IPv4-UNDERLAY-PEERS peer group\n\
-    \   neighbor IPv4-UNDERLAY-PEERS send-community\n   neighbor IPv4-UNDERLAY-PEERS\
-    \ maximum-routes 12000\n   redistribute connected route-map RM-CONN-2-BGP\n  \
-    \ !\n   address-family ipv4\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\n\
-    ip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    !\nrouter bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp\
+    \ 65201\n   router-id 10.1.0.1\n   update wait-for-convergence\n   update wait-install\n\
+    \   no bgp default ipv4-unicast\n   distance bgp 20 200 200\n   maximum-paths\
+    \ 4 ecmp 4\n   neighbor EVPN-OVERLAY-PEERS peer group\n   neighbor EVPN-OVERLAY-PEERS\
+    \ next-hop-unchanged\n   neighbor EVPN-OVERLAY-PEERS update-source Loopback0\n\
+    \   neighbor EVPN-OVERLAY-PEERS bfd\n   neighbor EVPN-OVERLAY-PEERS ebgp-multihop\
+    \ 3\n   neighbor EVPN-OVERLAY-PEERS send-community\n   neighbor EVPN-OVERLAY-PEERS\
+    \ maximum-routes 0\n   neighbor IPv4-UNDERLAY-PEERS peer group\n   neighbor IPv4-UNDERLAY-PEERS\
+    \ send-community\n   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000\n   neighbor\
+    \ 10.2.3.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.1 remote-as 65211\n\
+    \   neighbor 10.2.3.1 description s2-leaf1\n   neighbor 10.2.3.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.2.3.2 remote-as 65211\n   neighbor 10.2.3.2 description s2-leaf2\n\
+    \   neighbor 10.2.3.3 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.3 remote-as\
+    \ 65212\n   neighbor 10.2.3.3 description s2-leaf3\n   neighbor 10.2.3.4 peer\
+    \ group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.4 remote-as 65212\n   neighbor\
+    \ 10.2.3.4 description s2-leaf4\n   neighbor 10.2.3.5 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.2.3.5 remote-as 65213\n   neighbor 10.2.3.5 description s2-brdr1\n\
+    \   neighbor 10.2.3.6 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.6 remote-as\
+    \ 65213\n   neighbor 10.2.3.6 description s2-brdr2\n   redistribute connected\
+    \ route-map RM-CONN-2-BGP\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\nip radius vrf MGMT\
+    \ source-interface Management0\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
   AVD_s2-spine2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec /usr/bin/TerminAttr\
     \ -cvaddr=192.168.0.5:9910 -cvauth=key,atd-lab -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
     \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
@@ -1462,15 +1559,30 @@ CVP_CONFIGLETS:
     !\nip routing\nno ip routing vrf MGMT\n!\nip prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
     \   seq 10 permit 10.1.0.0/24 eq 32\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n\
     !\nroute-map RM-CONN-2-BGP permit 10\n   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY\n\
-    !\nrouter bgp 65201\n   router-id 10.1.0.2\n   update wait-for-convergence\n \
-    \  update wait-install\n   no bgp default ipv4-unicast\n   distance bgp 20 200\
-    \ 200\n   maximum-paths 4 ecmp 4\n   neighbor IPv4-UNDERLAY-PEERS peer group\n\
-    \   neighbor IPv4-UNDERLAY-PEERS send-community\n   neighbor IPv4-UNDERLAY-PEERS\
-    \ maximum-routes 12000\n   redistribute connected route-map RM-CONN-2-BGP\n  \
-    \ !\n   address-family ipv4\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\n\
-    ip radius vrf MGMT source-interface Management0\n!\nmanagement api http-commands\n\
-    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
-    end\n"
+    !\nrouter bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp\
+    \ 65201\n   router-id 10.1.0.2\n   update wait-for-convergence\n   update wait-install\n\
+    \   no bgp default ipv4-unicast\n   distance bgp 20 200 200\n   maximum-paths\
+    \ 4 ecmp 4\n   neighbor EVPN-OVERLAY-PEERS peer group\n   neighbor EVPN-OVERLAY-PEERS\
+    \ next-hop-unchanged\n   neighbor EVPN-OVERLAY-PEERS update-source Loopback0\n\
+    \   neighbor EVPN-OVERLAY-PEERS bfd\n   neighbor EVPN-OVERLAY-PEERS ebgp-multihop\
+    \ 3\n   neighbor EVPN-OVERLAY-PEERS send-community\n   neighbor EVPN-OVERLAY-PEERS\
+    \ maximum-routes 0\n   neighbor IPv4-UNDERLAY-PEERS peer group\n   neighbor IPv4-UNDERLAY-PEERS\
+    \ send-community\n   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000\n   neighbor\
+    \ 10.2.3.1 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.1 remote-as 65211\n\
+    \   neighbor 10.2.3.1 description s2-leaf1\n   neighbor 10.2.3.2 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.2.3.2 remote-as 65211\n   neighbor 10.2.3.2 description s2-leaf2\n\
+    \   neighbor 10.2.3.3 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.3 remote-as\
+    \ 65212\n   neighbor 10.2.3.3 description s2-leaf3\n   neighbor 10.2.3.4 peer\
+    \ group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.4 remote-as 65212\n   neighbor\
+    \ 10.2.3.4 description s2-leaf4\n   neighbor 10.2.3.5 peer group EVPN-OVERLAY-PEERS\n\
+    \   neighbor 10.2.3.5 remote-as 65213\n   neighbor 10.2.3.5 description s2-brdr1\n\
+    \   neighbor 10.2.3.6 peer group EVPN-OVERLAY-PEERS\n   neighbor 10.2.3.6 remote-as\
+    \ 65213\n   neighbor 10.2.3.6 description s2-brdr2\n   redistribute connected\
+    \ route-map RM-CONN-2-BGP\n   !\n   address-family evpn\n      neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n   !\n   address-family ipv4\n      no neighbor EVPN-OVERLAY-PEERS\
+    \ activate\n      neighbor IPv4-UNDERLAY-PEERS activate\n!\nip radius vrf MGMT\
+    \ source-interface Management0\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
 CVP_TOPOLOGY:
   ATD_FABRIC:
     parent_container: Tenant

@@ -12,13 +12,52 @@ router_bgp:
       type: ipv4
       maximum_routes: 12000
       send_community: all
+    EVPN-OVERLAY-PEERS:
+      type: evpn
+      update_source: Loopback0
+      bfd: true
+      ebgp_multihop: '3'
+      send_community: all
+      maximum_routes: 0
+      next_hop_unchanged: true
   address_family_ipv4:
     peer_groups:
       IPv4-UNDERLAY-PEERS:
         activate: true
+      EVPN-OVERLAY-PEERS:
+        activate: false
   redistribute_routes:
     connected:
       route_map: RM-CONN-2-BGP
+  address_family_evpn:
+    peer_groups:
+      EVPN-OVERLAY-PEERS:
+        activate: true
+  neighbors:
+    10.1.3.5:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-brdr1
+      remote_as: '65113'
+    10.1.3.6:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-brdr2
+      remote_as: '65113'
+    10.1.3.1:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-leaf1
+      remote_as: '65111'
+    10.1.3.2:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-leaf2
+      remote_as: '65111'
+    10.1.3.3:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-leaf3
+      remote_as: '65112'
+    10.1.3.4:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s1-leaf4
+      remote_as: '65112'
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
@@ -70,3 +109,8 @@ route_maps:
         type: permit
         match:
         - ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+router_bfd:
+  multihop:
+    interval: 300
+    min_rx: 300
+    multiplier: 3

@@ -8,6 +8,9 @@ fabric_name: ATD_FABRIC
 # EOS validate state settings
 validation_mode_loose: true
 
+# Enable vlan aware bundles
+vxlan_vlan_aware_bundles: true
+
 # # Cloud Vision servers
 # cvp_instance_ips:
 #   - 192.168.0.5

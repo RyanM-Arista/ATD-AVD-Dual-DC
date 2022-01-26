@@ -38,6 +38,14 @@ router_bgp:
     10.2.5.4:
       peer_group: MLAG-IPv4-UNDERLAY-PEER
       description: s2-leaf3
+    10.1.0.1:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s2-spine1
+      remote_as: '65201'
+    10.1.0.2:
+      peer_group: EVPN-OVERLAY-PEERS
+      description: s2-spine2
+      remote_as: '65201'
   redistribute_routes:
     connected:
       route_map: RM-CONN-2-BGP
@@ -82,31 +90,31 @@ router_bgp:
           - 501:501
       redistribute_routes:
       - connected
-  vlans:
-    202:
-      tenant: ATD_BLUE
-      rd: 10.2.3.4:10202
+  vlan_aware_bundles:
+    BLUE:
+      rd: 10.2.3.4:502
       route_targets:
         both:
-        - 10202:10202
+        - 502:502
       redistribute_routes:
       - learned
-    303:
-      tenant: ATD_GREEN
-      rd: 10.2.3.4:10303
+      vlan: 202
+    GREEN:
+      rd: 10.2.3.4:503
       route_targets:
         both:
-        - 10303:10303
+        - 503:503
       redistribute_routes:
       - learned
-    101:
-      tenant: ATD_RED
-      rd: 10.2.3.4:10101
+      vlan: 303
+    RED:
+      rd: 10.2.3.4:501
       route_targets:
         both:
-        - 10101:10101
+        - 501:501
       redistribute_routes:
       - learned
+      vlan: 101
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
