@@ -10,6 +10,7 @@
   arista.cvp.cv_device_v3:
     devices: "{{CVP_DEVICES_INIT}}"
     state: present
+    apply_mode: strict
   register: CVP_DEVICES_RESULTS
 
 - name: "Execute pending tasks on {{inventory_hostname}}"
@@ -19,13 +20,13 @@
   when:
     - CVP_DEVICES_RESULTS.taskIds | length > 0
 
-- name: "Cleaning up Tenant Container Configlet"
-  command: "python3 service_scripts/configlet_remove.py"
-  register: result
 
 - name: "Refresh Containers topology on {{inventory_hostname}}"
   tags: [provision, apply]
-  apply_mode: strict
   arista.cvp.cv_container_v3:
     topology: '{{CVP_CONTAINERS_DELETE}}'
     state: absent
+
+- name: "Cleaning up Tenant Container Configlet"
+  command: "python3 service_scripts/configlet_remove.py"
+  register: result
