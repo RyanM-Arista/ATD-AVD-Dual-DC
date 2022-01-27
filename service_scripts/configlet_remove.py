@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import urllib3
+import urllib3, yaml
 from pprint import pprint
 from cvprac.cvp_client import CvpClient
 urllib3.disable_warnings()
 clnt = CvpClient()
-a_yaml_file = open("../group_vars/CVP/CVP_CRED.yml")
-parsed_yaml_file = yaml.load(a_yaml_file, Loader=yaml.FullLoader)
+with open('../group_vars/CVP/CVP_CRED.yml') as passfile:
+    file_data = yaml.safe_load(passfile)
+    cvpPass = file_data['ansible_password']
 clnt.connect(['192.168.0.5'], 'arista', cvpPass )
+
 ##Cleanup Tenant Container
 container_name = "Tenant"
 configletName = 'ATD-INFRA'
