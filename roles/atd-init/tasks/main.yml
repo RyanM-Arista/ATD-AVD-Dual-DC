@@ -19,6 +19,10 @@
   when:
     - CVP_DEVICES_RESULTS.taskIds | length > 0
 
+- name: "Cleaning up Tenant Container Configlet"
+  command: "python3 service_scripts/configlet_remove.py"
+  register: result
+
 - name: "Refresh Containers topology on {{inventory_hostname}}"
   tags: [provision, apply]
   apply_mode: strict

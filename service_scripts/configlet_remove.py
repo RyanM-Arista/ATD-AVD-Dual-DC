@@ -4,7 +4,7 @@ from pprint import pprint
 from cvprac.cvp_client import CvpClient
 urllib3.disable_warnings()
 clnt = CvpClient()
-with open('../group_vars/CVP/CVP_CRED.yml') as passfile:
+with open('group_vars/CVP/CVP_CRED.yml', 'r') as passfile:
     file_data = yaml.safe_load(passfile)
     cvpPass = file_data['ansible_password']
 clnt.connect(['192.168.0.5'], 'arista', cvpPass )
