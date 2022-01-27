@@ -40,6 +40,8 @@ update-configlet: ## Run ansible playbook to update configlets on CloudVision
 
 .PHONY: atd-setup
 atd-setup: ## Run ansible playbook to Setup ATD Environment
+	ansible-galaxy collection install arista.avd --upgrade
+	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
 	ansible-playbook playbooks/atd-setup.yml
 
 .PHONY: fabric-cleanup
