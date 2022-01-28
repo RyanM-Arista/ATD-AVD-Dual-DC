@@ -31,7 +31,7 @@ fabric-debug: ## Run ansible playbook to build Fabric configuration for AVD Fabr
 	ansible-playbook playbooks/fabric-deploy.yml --tags build,debug -i inventory.yml
 
 .PHONY: fabric-init
-initial-deploy: ## Initial Deployment for the AVD topology
+fabric-init: ## Initial Deployment for the AVD topology
 	ansible-playbook playbooks/fabric-deploy.yml --tags provision -i inventory.yml
 	ansible-playbook playbooks/fabric-init.yml -i inventory.yml
 
