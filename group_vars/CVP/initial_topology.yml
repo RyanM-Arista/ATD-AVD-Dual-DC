@@ -5,130 +5,108 @@ CVP_DEVICES_INIT:
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Leaf1
-      - ATD-INFRA
   - fqdn: s1-leaf2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Leaf2
-      - ATD-INFRA
   - fqdn: s1-leaf3
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Leaf3
-      - ATD-INFRA
   - fqdn: s1-leaf4
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Leaf4
-      - ATD-INFRA
   - fqdn: s1-brdr1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Brdr1
-      - ATD-INFRA
   - fqdn: s1-brdr2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Brdr2
-      - ATD-INFRA
   - fqdn: s1-core1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Core1
-      - ATD-INFRA
   - fqdn: s1-core2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Core2
-      - ATD-INFRA
   - fqdn: s1-spine1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S1-Spine1
-      - ATD-INFRA
   - fqdn: s1-spine2
     parentContainerName: STAGING
     configlets:
        - BaseIPv4_S1-Spine2
-       - ATD-INFRA
   - fqdn: s1-host1
     parentContainerName: STAGING
     configlets:
        - BaseIPv4_S1-Host1
-       - ATD-INFRA
   - fqdn: s1-host2
     parentContainerName: STAGING
     configlets:
        - BaseIPv4_S1-Host2
-       - ATD-INFRA
   - fqdn: s2-leaf1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Leaf1
-      - ATD-INFRA
   - fqdn: s2-leaf2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Leaf2
-      - ATD-INFRA
   - fqdn: s2-leaf3
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Leaf3
-      - ATD-INFRA
   - fqdn: s2-leaf4
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Leaf4
-      - ATD-INFRA
   - fqdn: s2-brdr1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Brdr1
-      - ATD-INFRA
   - fqdn: s2-brdr2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Brdr2
-      - ATD-INFRA
   - fqdn: s2-core1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Core1
-      - ATD-INFRA
   - fqdn: s2-core2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Core2
-      - ATD-INFRA
   - fqdn: s2-spine1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Spine1
-      - ATD-INFRA
   - fqdn: s2-spine2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Spine2
-      - ATD-INFRA
   - fqdn: s2-host1
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Host1
-      - ATD-INFRA
   - fqdn: s2-host2
     parentContainerName: STAGING
     configlets:
       - BaseIPv4_S2-Host2
-      - ATD-INFRA
 
 CVP_CONTAINERS_INIT:
   STAGING:
     parentContainerName: Tenant
-    # configlets:
-    #   - ATD-INFRA
-  # Tenant:
-  #   configlets:
+    configlets:
+      - ATD-BASE
+  Tenant:
+    parentContainerName: Tenant
+    configlets:
+      - ATD-ALIAS
 
 CVP_CONTAINERS_DELETE:
   S1-Leaf:
