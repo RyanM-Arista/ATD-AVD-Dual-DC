@@ -14,7 +14,7 @@ container_name = "Tenant"
 configletName = 'ATD-INFRA'
 container = clnt.api.get_container_by_name(container_name)
 configlet = clnt.api.get_configlet_by_name(configletName)
-result = clnt.api.remove_configlets_from_container("test", container, [configlet], True)
+result = clnt.api.remove_configlets_from_container("", container, [configlet], True)
 #pprint (result)
 #print (result['data']['taskIds'])
 task = result['data'].get('taskIds')
