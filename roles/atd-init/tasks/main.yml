@@ -10,7 +10,7 @@
   arista.cvp.cv_device_v3:
     devices: "{{CVP_DEVICES_INIT}}"
     state: present
-    apply_mode: strict
+    #apply_mode: strict
   register: CVP_DEVICES_RESULTS
 
 - name: "Execute pending tasks on {{inventory_hostname}}"
@@ -30,3 +30,9 @@
 - name: "Cleaning up Tenant Container Configlet"
   command: "python3 service_scripts/configlet_remove.py"
   register: result
+  ignore_errors: true
+
+- name: "Initial ATD Setup Complete"
+  debug:
+    msg: "Setup is complete execute make fabric-provisioning next"
+
