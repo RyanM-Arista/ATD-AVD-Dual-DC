@@ -30,9 +30,10 @@ fabric-backup: ## Run ansible playbook to backup switch fabric via eAPI
 fabric-debug: ## Run ansible playbook to build Fabric configuration for AVD Fabric and CVP with debugging enabled
 	ansible-playbook playbooks/fabric-deploy.yml --tags build,debug -i inventory.yml
 
-.PHONY: initial-deploy
-initial-deploy: ## Deploy Fabric configuration for ATD Fabric using SSH/eAPI (Bypass CVP)
-	ansible-playbook playbooks/fabric-ssh-deploy.yml -i inventory.yml
+.PHONY: fabric-init
+initial-deploy: ## Initial Deployment for the AVD topology
+	ansible-playbook playbooks/fabric-deploy.yml --tags provision -i inventory.yml
+	ansible-playbook playbooks/fabric-init.yml -i inventory.yml
 
 .PHONY: update-configlet
 update-configlet: ## Run ansible playbook to update configlets on CloudVision

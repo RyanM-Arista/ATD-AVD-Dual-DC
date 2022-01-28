@@ -10,7 +10,7 @@
   arista.cvp.cv_device_v3:
     devices: "{{CVP_DEVICES_INIT}}"
     state: present
-    #apply_mode: strict
+    apply_mode: strict
   register: CVP_DEVICES_RESULTS
 
 - name: "Execute pending tasks on {{inventory_hostname}}"
@@ -34,5 +34,5 @@
 
 - name: "Initial ATD Setup Complete"
   debug:
-    msg: "Setup is complete execute make fabric-provisioning next"
+    msg: "Setup is complete execute make fabric-init next"
 
