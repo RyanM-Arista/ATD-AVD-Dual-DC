@@ -52,6 +52,7 @@ fabric-cleanup: ## Run ansible playbook to build Fabric configuration for ATD Fa
 .PHONY: update-devel
 update-devel: ## Update to the latest arista.avd collections development branch
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
+	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-cvp.git#/ansible_collections/arista/cvp/,devel
 
 .PHONY: update-collections
 update-collections: ## Update arista.avd collections to latest release branch
