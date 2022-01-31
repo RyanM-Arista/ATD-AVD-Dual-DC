@@ -1,17 +1,15 @@
 # ---
 
-# - name: 'Create configlets on CVP {{inventory_hostname}}.'
-#   arista.cvp.cv_configlet_v3:
-#     configlets:
-#       ATD-BASE: "{{ lookup('file','~/project/labfiles/AristaValidatedDesigns/ATD-AVD-Dual-DC/group_vars/CVP/ATD-BASE.txt') }}"
-#       ATD-ALIAS: "alias sib show interface brief"
-#     configlets_notes: "Configlet managed by Ansible"
+- name: 'Create configlets on CVP {{inventory_hostname}}.'
+  arista.cvp.cv_configlet_v3:
+    configlets:
+      ATD-BASE: "{{ lookup('file','~/project/labfiles/AristaValidatedDesigns/ATD-AVD-Dual-DC/group_vars/CVP/ATD-BASE.txt') }}"
+    configlets_notes: "Configlet managed by Ansible"
 
 - name: "Building initial Containers topology"
   tags: [provision, apply]
   arista.cvp.cv_container_v3:
-    topology: '{{CVP_CONTAINERS_INIT}}'  #'{{CVP_CONTAINERS_INIT_1}}'
-    #apply_mode: strict
+    topology: '{{CVP_CONTAINERS_INIT}}'
 
 - name: "Moving devices to Staging container"
   tags: [provision, apply]
@@ -34,15 +32,20 @@
     topology: '{{CVP_CONTAINERS_DELETE}}'
     state: absent
 
-# - name: Pause for 2 minutes
-#   pause:
-#     minutes: 2
+- name: Pause for 1 minutes to execute all tasks
+  pause:
+    minutes: 1
 
-# - name: "Removing ATD-INFRA from Tenant container"
-#   tags: [provision, apply]
-#   arista.cvp.cv_container_v3:
-#     topology: '{{CVP_CONTAINERS_INIT_2}}'
-#     apply_mode: strict
+- name: "Removing ATD-INFRA from Tenant container"
+  tags: [provision, apply]
+  arista.cvp.cv_container_v3:
+    topology: '{{CVP_ATD_CONTAINER}}'
+    apply_mode: strict
+
+- name: "Execute pending tasks on {{inventory_hostname}}"
+  tags: [apply]
+  arista.cvp.cv_task_v3:
+    tasks: "{{ CVP_DEVICES_RESULTS.taskIds }}"
 
 # - name: "Cleaning up Tenant Container Configlet"
 #   command: "python3 service_scripts/configlet_remove.py"
