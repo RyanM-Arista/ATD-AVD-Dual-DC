@@ -1,4 +1,5 @@
 - name: "Gather CVP facts {{inventory_hostname}}"
+  tags: [provision, apply]
   arista.cvp.cv_facts_v3:
     facts:
       - devices
