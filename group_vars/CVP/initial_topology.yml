@@ -135,103 +135,99 @@ CVP_CONTAINERS_DELETE:
     parentContainerName: Tenant
 
 CVP_CONFIGLET_LEGACY_DELETE:
-  - fqdn: s1-leaf1
-    parentContainerName: SITE1_DC_LEAF1
-    configlets:
-      - BaseIPv4_S1-Leaf1
-  - fqdn: s1-leaf2
-    parentContainerName: SITE1_DC_LEAF1
-    configlets:
-      - BaseIPv4_S1-Leaf2
-  - fqdn: s1-leaf3
-    parentContainerName: SITE1_DC_LEAF2
-    configlets:
-      - BaseIPv4_S1-Leaf3
-  - fqdn: s1-leaf4
-    parentContainerName: SITE1_DC_LEAF2
-    configlets:
-      - BaseIPv4_S1-Leaf4
   - fqdn: s1-brdr1
     parentContainerName: SITE1_BORDER_LEAF1
     configlets:
-      - BaseIPv4_S1-Brdr1
+      - AVD_s1-brdr1
   - fqdn: s1-brdr2
     parentContainerName: SITE1_BORDER_LEAF1
     configlets:
-      - BaseIPv4_S1-Brdr2
+      - AVD_s1-brdr2
   - fqdn: s1-core1
     parentContainerName: SITE1_CORE_LEAF1
     configlets:
-      - BaseIPv4_S1-Core1
+      - AVD_s1-core1
   - fqdn: s1-core2
     parentContainerName: SITE1_CORE_LEAF1
     configlets:
-      - BaseIPv4_S1-Core2
-  - fqdn: s1-spine1
-    parentContainerName: SITE1_SPINES
-    configlets:
-      - BaseIPv4_S1-Spine1
-  - fqdn: s1-spine2
-    parentContainerName: SITE1_SPINES
-    configlets:
-       - BaseIPv4_S1-Spine2
+      - AVD_s1-core2
   - fqdn: s1-host1
     parentContainerName: SITE1_HOSTS
     configlets:
-       - BaseIPv4_S1-Host1
-       - S1-Host1-ATD
+      - AVD_s1-host1
   - fqdn: s1-host2
     parentContainerName: SITE1_HOSTS
     configlets:
-      - BaseIPv4_S1-Host2
-      - S1-Host2-ATD
-  - fqdn: s2-leaf1
-    parentContainerName: SITE2_DC_LEAF1
+      - AVD_s1-host2
+  - fqdn: s1-leaf1
+    parentContainerName: SITE1_DC_LEAF1
     configlets:
-      - BaseIPv4_S2-Leaf1
-  - fqdn: s2-leaf2
-    parentContainerName: SITE2_DC_LEAF1
+      - AVD_s1-leaf1
+  - fqdn: s1-leaf2
+    parentContainerName: SITE1_DC_LEAF1
     configlets:
-      - BaseIPv4_S2-Leaf2
-  - fqdn: s2-leaf3
-    parentContainerName: SITE2_DC_LEAF2
+      - AVD_s1-leaf2
+  - fqdn: s1-leaf3
+    parentContainerName: SITE1_DC_LEAF2
     configlets:
-      - BaseIPv4_S2-Leaf3
-  - fqdn: s2-leaf4
-    parentContainerName: SITE2_DC_LEAF2
+      - AVD_s1-leaf3
+  - fqdn: s1-leaf4
+    parentContainerName: SITE1_DC_LEAF2
     configlets:
-      - BaseIPv4_S2-Leaf4
+      - AVD_s1-leaf4
+  - fqdn: s1-spine1
+    parentContainerName: SITE1_SPINES
+    configlets:
+      - AVD_s1-spine1
+  - fqdn: s1-spine2
+    parentContainerName: SITE1_SPINES
+    configlets:
+      - AVD_s1-spine2
   - fqdn: s2-brdr1
     parentContainerName: SITE2_BORDER_LEAF1
     configlets:
-      - BaseIPv4_S2-Brdr1
+      - AVD_s2-brdr1
   - fqdn: s2-brdr2
     parentContainerName: SITE2_BORDER_LEAF1
     configlets:
-      - BaseIPv4_S2-Brdr2
+      - AVD_s2-brdr2
   - fqdn: s2-core1
     parentContainerName: SITE2_CORE_LEAF1
     configlets:
-      - BaseIPv4_S2-Core1
+      - AVD_s2-core1
   - fqdn: s2-core2
     parentContainerName: SITE2_CORE_LEAF1
     configlets:
-      - BaseIPv4_S2-Core2
-  - fqdn: s2-spine1
-    parentContainerName: SITE2_SPINES
-    configlets:
-      - BaseIPv4_S2-Spine1
-  - fqdn: s2-spine2
-    parentContainerName: SITE2_SPINES
-    configlets:
-      - BaseIPv4_S2-Spine2
+      - AVD_s2-core2
   - fqdn: s2-host1
     parentContainerName: SITE2_HOSTS
     configlets:
-      - BaseIPv4_S2-Host1
-      - S2-Host1-ATD
+      - AVD_s2-host1
   - fqdn: s2-host2
     parentContainerName: SITE2_HOSTS
     configlets:
-      - BaseIPv4_S2-Host2
-      - S2-Host2-ATD
+      - AVD_s2-host2
+  - fqdn: s2-leaf1
+    parentContainerName: SITE2_DC_LEAF1
+    configlets:
+      - AVD_s2-leaf1
+  - fqdn: s2-leaf2
+    parentContainerName: SITE2_DC_LEAF1
+    configlets:
+      - AVD_s2-leaf2
+  - fqdn: s2-leaf3
+    parentContainerName: SITE2_DC_LEAF2
+    configlets:
+      - AVD_s2-leaf3
+  - fqdn: s2-leaf4
+    parentContainerName: SITE2_DC_LEAF2
+    configlets:
+      - AVD_s2-leaf4
+  - fqdn: s2-spine1
+    parentContainerName: SITE2_SPINES
+    configlets:
+      - AVD_s2-spine1
+  - fqdn: s2-spine2
+    parentContainerName: SITE2_SPINES
+    configlets:
+      - AVD_s2-spine2

@@ -1,16 +1,16 @@
 - name: "Gather CVP facts {{inventory_hostname}}"
-  tags: [provision, apply]
+  tags: [removelegacy]
   arista.cvp.cv_facts_v3:
     facts:
       - devices
   register: CVP_FACTS
 
 - name: "Removing ATD-INFRA from Tenant container"
-  tags: [provision, apply]
+  tags: [removelegacy]
   arista.cvp.cv_device_v3:
     devices: '{{CVP_CONFIGLET_LEGACY_DELETE}}'
-    state: absent
-    apply_mode: loose
+    state: present
+    apply_mode: strict
   when: CVP_FACTS.data.cvp_devices | map(attribute='configlets') | regex_findall('BaseIPv4_') | length  > 0
 
 
