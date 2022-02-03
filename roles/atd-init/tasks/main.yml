@@ -41,6 +41,7 @@
   arista.cvp.cv_container_v3:
     topology: '{{CVP_ATD_CONTAINER}}'
     apply_mode: strict
+  register: CVP_DEVICES_RESULTS
 
 - name: "Execute pending tasks on {{inventory_hostname}}"
   tags: [apply]
