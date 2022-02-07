@@ -26,8 +26,3 @@
     - name: "Reset ATD lab to initial state"
       import_role:
         name: 'atd-init'
-
-    - name: Remove legacy ATD configlets
-      tags: [removelegacy]
-      import_role:
-         name: 'atd-remove-legacy'

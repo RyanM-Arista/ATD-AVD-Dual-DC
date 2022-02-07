@@ -40,3 +40,8 @@
     - name: run CVP provisioning
       import_role:
          name: arista.avd.eos_config_deploy_cvp
+
+    - name: Remove legacy ATD configlets
+      tags: removelegacy
+      import_role:
+         name: 'atd-remove-legacy'

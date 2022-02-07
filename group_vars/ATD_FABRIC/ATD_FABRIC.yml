@@ -28,15 +28,15 @@ daemon_terminattr:
   disable_aaa: true
   smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"
   ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
-  cvvrf: Default
+  # cvvrf: default
 
 # Enable Multi-Agent mode
 service_routing_protocols_model: multi-agent
 
 # Default BGP settings (for items not found on AVD)
 atd_bgp_defaults:
-  - 'update wait-for-convergence'
-  - 'update wait-install'
+  # - 'update wait-for-convergence'
+  # - 'update wait-install'
   - 'no bgp default ipv4-unicast'
   - 'distance bgp 20 200 200'
 
@@ -53,7 +53,7 @@ CEOS_CORE_UPLINK_Interfaces: ['Ethernet2', 'Ethernet3']
 CEOS_UPLINK_SWITCH_Interfaces: ['Ethernet4', 'Ethernet4']
 
 # Management VRF Name
-mgmt_interface_vrf: Default
+mgmt_interface_vrf: default
 
 # DNS information
 dns_domain: atd.lab
