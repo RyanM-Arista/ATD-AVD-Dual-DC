@@ -47,7 +47,7 @@ atd-setup: ## Run ansible playbook to Setup ATD Environment
 	ansible-playbook playbooks/atd-setup.yml
 
 .PHONY: atd-removelegacy
-fabric-provision: ## Run ansible playbook AFTER running fabric-provision to remove legacy configlets (added on all ATD labs by default)
+atd-removelegacy: ## Run ansible playbook AFTER running fabric-provision to remove legacy configlets (added on all ATD labs by default)
 	ansible-playbook playbooks/fabric-deploy.yml --tags removelegacy --skip-tags always -i inventory.yml
 
 .PHONY: update-devel

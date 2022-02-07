@@ -1,6 +1,0 @@
-local_users:
-  arista:
-    privilege: 15
-    role: network-admin
-    sha512_password: run_playbook_setupAAA
-    ssh_key: "run_playbook_setupAAA_Install_Devel_branch_if_not_generated"
