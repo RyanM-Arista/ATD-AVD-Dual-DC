@@ -46,9 +46,9 @@ atd-setup: ## Run ansible playbook to Setup ATD Environment
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-cvp.git#/ansible_collections/arista/cvp/,devel
 	ansible-playbook playbooks/atd-setup.yml
 
-.PHONY: fabric-cleanup
-fabric-cleanup: ## Run ansible playbook to build Fabric configuration for ATD Fabric and CVP (will build configuration locally on your VS Code Instance)
-	ansible-playbook playbooks/fabric-cleanup.yml -i inventory.yml
+.PHONY: atd-removelegacy
+fabric-provision: ## Run ansible playbook AFTER running fabric-provision to remove legacy configlets (added on all ATD labs by default)
+	ansible-playbook playbooks/fabric-deploy.yml --tags removelegacy --skip-tags always -i inventory.yml
 
 .PHONY: update-devel
 update-devel: ## Update to the latest arista.avd collections development branch
