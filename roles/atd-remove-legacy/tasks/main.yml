@@ -12,7 +12,7 @@
     devices: '{{CVP_DEVICES}}'
     state: present
     apply_mode: strict
-  when: CVP_FACTS.data.cvp_devices | map(attribute='configlets') | regex_findall('BaseIPv4_') | length  > 0
+  when: CVP_FACTS.data.cvp_devices | map(attribute='configlets') | regex_findall('BASE_') | length  > 0
   register: CVP_RESULTS
 
 - name: "Execute pending tasks on {{inventory_hostname}}"
