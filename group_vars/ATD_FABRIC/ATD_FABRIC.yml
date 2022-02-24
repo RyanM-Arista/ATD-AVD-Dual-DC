@@ -5,6 +5,12 @@
 # Fabric name
 fabric_name: ATD_FABRIC
 
+# Custom Structure Configuration Prefixes
+
+custom_structured_configuration_prefix:
+  - "custom_structured_configuration_"
+  - "custom_structured_configuration_host_"
+
 # EOS validate state settings
 validation_mode_loose: true
 

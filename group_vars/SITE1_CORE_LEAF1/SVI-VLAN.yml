@@ -1,0 +1,20 @@
+---
+custom_structured_configuration_vlans:
+  701:
+    name: iBGP_VRF_BLUE
+  702:
+    name: iBGP_VRF_GREEN
+  703:
+    name: iBGP_VRF_RED
+  801:
+    name: BGP_VRF_BLUE
+  802:
+    name: BGP_VRF_GREEN
+  803:
+    name: BGP_VRF_RED
+  4093:
+    name: LEAF_PEER_L3
+    trunk_groups:
+      - "LEAF_PEER_L3"
+
+ip_virtual_router_mac_address: "{{ atd_virtual_router_mac_address }}"

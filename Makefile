@@ -44,6 +44,8 @@ atd-setup: ## Run ansible playbook to Setup ATD Environment
 	ansible-galaxy collection install arista.avd --upgrade
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-cvp.git#/ansible_collections/arista/cvp/,devel
+	ansible-galaxy collection install community.general
+	ansible-galaxy collection install ansible.posix
 	ansible-playbook playbooks/atd-setup.yml
 
 .PHONY: atd-removelegacy
@@ -58,3 +60,5 @@ update-devel: ## Update to the latest arista.avd collections development branch
 .PHONY: update-collections
 update-collections: ## Update arista.avd collections to latest release branch
 	ansible-galaxy collection install arista.avd --upgrade
+	ansible-galaxy collection install community.general --upgrade
+	ansible-galaxy collection install ansible.posix --upgrade
