@@ -52,7 +52,7 @@ l3leaf:
       bgp_as: 65213
       filter:
         tenants: [all]
-        tags: [SITE2_DC]
+        tags: [SITE2_DC, SITE2_BRDR]
       nodes:
         s2-brdr1:
           id: 5

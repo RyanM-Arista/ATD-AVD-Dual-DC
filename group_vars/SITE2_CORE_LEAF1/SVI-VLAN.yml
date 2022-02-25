@@ -7,11 +7,17 @@ custom_structured_configuration_vlans:
   713:
     name: iBGP_VRF_RED
   801:
-    name: BGP_VRF_BLUE
+    name: BGP_VRF_BLUE_CORE1
   802:
-    name: BGP_VRF_GREEN
+    name: BGP_VRF_GREEN_CORE1
   803:
-    name: BGP_VRF_RED
+    name: BGP_VRF_RED_CORE1
+  811:
+    name: BGP_VRF_BLUE_CORE2
+  812:
+    name: BGP_VRF_GREEN_CORE2
+  813:
+    name: BGP_VRF_RED_CORE2
   4093:
     name: LEAF_PEER_L3
     trunk_groups:
