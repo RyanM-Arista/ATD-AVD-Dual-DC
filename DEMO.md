@@ -49,4 +49,6 @@ This step will push all the generated configuration to the devices via CVP.
 
 From the initial screen, click on "CVP". This will open up a web session to the Arista Cloudvision station. Use the Lab Credentials username and password to login.
 
+![](./images/CVP.png)
+
 Under the Provisioning tab, you will notice a bunch of tasks have been created by the after performing Step 5. Go to Tasks and select all assignable tasks and then click on "Create Change Control". For faster deployment, you can select Parallel under Select an Arrangement, this will deploy changes to all the devices at the simulataneously and finally, review, approve and execute the changes. 
