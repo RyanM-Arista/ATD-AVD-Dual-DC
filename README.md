@@ -59,7 +59,7 @@ To Setup ATD Topology run the following commands
 
  ## Step-by-step Procedures
 
- For more detailed instructions, a complete step-by-step guide is available [here](./DEMO.md)
+ For more detailed instructions, a complete step-by-step guide is available [HERE.](./STEP-BY-STEP.md)
 
  ## Resources
 
