@@ -1,4 +1,4 @@
-# Step by Step demo
+# Step by Step Procedures
 
 ## 1. Connect to GUI VM
 
