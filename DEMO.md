@@ -31,7 +31,7 @@ Enter the Programmability IDE password when prompted.
 ![](./images/Programmability_IDE.png)
 
 
-Using PWD command, check and make sure that you are inside the proper directory. If not, type "cd labfiles/AristaValidatedDesigns" to get into the proper directory.
+Using PWD command, check and make sure that you are inside the proper directory. If not, type "cd labfiles/AristaValidatedDesigns" to get into the correct directory.
 
 ### Step 4:
 
