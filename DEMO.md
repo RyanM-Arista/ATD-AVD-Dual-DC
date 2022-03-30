@@ -1,4 +1,4 @@
-# Contents are still being added!
+(NOTE: This document is still being updated)
 
 
 # ATD-AVD Dual DataCenters Lab Guide
