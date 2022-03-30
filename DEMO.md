@@ -53,7 +53,7 @@ Password needs to be entered during this process, this will automatically setup 
 
 Enter and confirm using the Lab Credentials password.
 
-(This process will take sometime, pls. be patient)
+(This entire setup process would take between 15-20 minutes)
 
 ### Step 5:
 
@@ -67,10 +67,38 @@ The next step is building the Fabric configuration using the "make provision" co
 
 This step will push all the generated configuration to the devices via CVP.
 
+#### Step 6a:
 From the initial screen, click on "CVP". This will open up a web session to the Arista Cloudvision station. Use the Lab Credentials username and password to login.
 
 
 ![](./images/CVP.png)
 
 
-Under the Provisioning tab, you will notice a bunch of tasks have been created after performing Step 5. Go to Tasks and select all assignable tasks and then click on "Create Change Control". For faster deployment, you can select Parallel under Select an Arrangement, this will deploy changes to all the devices simulataneously and finally, review, approve and execute the changes.
+Under the Provisioning tab, click Network Provisioning, you should see all devices under "STAGING" container, shown below
+
+![](./images/Net_Prov_View.png)
+
+
+Also, you will notice several tasks have been created after performing Step 5.
+
+![](./images/Tasks.png)
+
+Click Tasks and select all assignable tasks and then click on "Create Change Control".
+
+![](./images/ChangeControl1.png)
+
+For faster deployment, you can select Parallel under Select an Arrangement, this will deploy changes to all the devices simulataneously 
+
+![](./images/ChangeControl2.png)
+
+Click Review and Approve
+
+![](./images/ChangeControl3.png)
+
+Approve the change control
+
+![](./images/ChangeControl4.png)
+
+And finally, execute the change control
+
+![](./images/ChangeControl5.png)
