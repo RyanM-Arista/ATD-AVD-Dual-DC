@@ -30,6 +30,9 @@ Enter the Programmability IDE password when prompted.
 
 ![](./images/Programmability_IDE.png)
 
+Click on the Application Menu on the top left, select Terminal and then click on New Terminal. 
+
+![](./images/Open_Terminal.png)
 
 Using PWD command, check and make sure that you are inside the proper directory. If not, type "cd labfiles/AristaValidatedDesigns" to get into the correct directory.
 
@@ -57,7 +60,7 @@ Enter and confirm using the Lab Credentials password.
 
 ### Step 5:
 
-The next step is building the Fabric configuration using the "make provision" command. This will generate all intended configurations, devices containers on CVP and all related documentation.
+The next step is building the Fabric configuration using the "make provision" command. This will generate all intended configurations, devices containers on CVP and all related documentation. Note that all the configuration changes pushed by Ansible will be pending on CVP until the user execute these changes. 
 
 ```bash
 ➜  AristaValidatedDesigns make fabric-provision
@@ -99,3 +102,7 @@ Approve the change control
 And finally, execute the change control
 
 ![](./images/ChangeControl5.png)
+
+
+## Day-2 Operations
+
