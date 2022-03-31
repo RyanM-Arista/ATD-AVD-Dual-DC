@@ -103,6 +103,3 @@ And finally, execute the change control
 
 ![](./images/ChangeControl5.png)
 
-
-## Day-2 Operations
-
