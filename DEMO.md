@@ -13,9 +13,9 @@ Open the link provided by Arista representative during registration. The provide
 ![](./images/Start_Screen.png)
 
 
-Check and make sure that your topology is "Running". If not, pls. go ahead and click "START" to bring up the lab.
+Check and make sure that your topology is "Running". If not, please go ahead and click "START" to bring up the lab.
 
-Note: Pls. take note of the Lab Credentials and Passwords, these are necessary to move to the next steps.
+Note: Please take note of the Lab Credentials and Passwords, these are necessary to move to the next steps.
 
 ### Step 2:
 
@@ -49,11 +49,11 @@ The first step is to setup the ATD environment. On the VScode terminal screen, t
 ➜  AristaValidatedDesigns make atd-setup
 ```
 
-Password needs to be entered during this process, this will automatically setup the AAA account required to push all the configuration changes to the devices. The password can be found at the bottom area of the initial page.
+Password needs to be entered during this process, this will automatically setup the AAA credentials required to push all the configuration changes to the devices. The password can be found at the bottom area of the initial page.
 
 Enter and confirm using the Lab Credentials password.
 
-(This entire setup process would take between 15-20 minutes)
+(This setup process would take between 15-20 minutes)
 
 ### Step 5:
 
@@ -65,10 +65,7 @@ The next step is building the Fabric configuration using the "make provision" co
 
 ### Step 6:
 
-This step will push all the generated configuration to the devices via CVP.
-
-#### Step 6a:
-From the initial screen, click on "CVP". This will open up a web session to the Arista Cloudvision station. Use the Lab Credentials username and password to login.
+This step will push all the generated configuration to the devices via CVP. From the initial screen, click on "CVP". This will open up a web session to the Arista Cloudvision Portal station. Use the Lab Credentials username and password to login.
 
 
 ![](./images/CVP.png)
