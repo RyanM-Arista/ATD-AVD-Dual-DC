@@ -68,7 +68,7 @@ The next step is building the Fabric configuration using the "make provision" co
 
 ### Step 6:
 
-This step will push all the generated configuration to the devices via CVP. From the initial screen, click on "CVP". This will open up a web session to the Arista Cloudvision Portal station. Use the Lab Credentials username and password to login.
+This step will push all the generated configuration to the devices via CVP. From the initial screen, click on "CVP". This will open up a web session to the Arista CloudVision Portal. Use the Lab Credentials username and password to login.
 
 
 ![](./images/CVP.png)
