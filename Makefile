@@ -41,7 +41,7 @@ update-configlet: ## Run ansible playbook to update configlets on CloudVision
 
 .PHONY: atd-setup
 atd-setup: ## Run ansible playbook to Setup ATD Environment
-	ansible-galaxy collection install arista.avd:==3.6.0
+	ansible-galaxy collection install arista.avd:==3.8.4
 	ansible-galaxy collection install community.general
 	ansible-galaxy collection install ansible.posix
 	ansible-playbook playbooks/atd-setup.yml
@@ -63,6 +63,7 @@ update-collections: ## Update arista.avd collections to latest release branch
 	ansible-galaxy collection install community.general --upgrade
 	ansible-galaxy collection install ansible.posix --upgrade
 	pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements.txt --upgrade
+	pip3 install ansible-core==2.13.8
 
 .PHONY: reset
 reset: ## Run ansible playbook to Reset ATD Environment

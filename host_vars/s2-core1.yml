@@ -44,7 +44,7 @@ router_bgp:
     MLAG-IPv4-UNDERLAY-PEER:
       type: ipv4
       remote_as: 65221
-      next_hop_self: true
+      # next_hop_self: true
       route_map_in: RM-MLAG-PEER-IN
       send_community: all
       maximum_routes: 12000
@@ -73,7 +73,7 @@ router_bgp:
         10.3.1.6:
           remote_as: 65213
           description: BGP_VRF_BLUE_s2-brdr2
-      next_hop_self: true
+      # next_hop_self: true
       redistribute_routes:
         - connected
         - static
@@ -104,7 +104,7 @@ router_bgp:
         10.3.2.6:
           remote_as: 65213
           description: BGP_VRF_GREEN_s2-brdr2
-      next_hop_self: true
+      # next_hop_self: true
       redistribute_routes:
         - connected
         - static
@@ -135,7 +135,7 @@ router_bgp:
         10.3.3.6:
           remote_as: 65213
           description: BGP_VRF_RED_s2-brdr2
-      next_hop_self: true
+      # next_hop_self: true
       redistribute_routes:
         - connected
         - static
