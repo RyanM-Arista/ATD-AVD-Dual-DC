@@ -1,0 +1,46 @@
+# ---
+
+- name: 'Create configlets on CVP {{inventory_hostname}}.'
+  arista.cvp.cv_configlet_v3:
+    configlets:
+      ATD-BASE: "{{ lookup('file','~/project/labfiles/AristaValidatedDesigns/group_vars/CVP/ATD-BASE.txt') }}"
+    configlets_notes: "Configlet managed by Ansible"
+
+- name: "Resetting initial Containers topology"
+  arista.cvp.cv_container_v3:
+    topology: '{{CVP_CONTAINERS_RESET}}'
+
+- name: "Adding ATD-INFRA from Tenant container"
+  arista.cvp.cv_container_v3:
+    topology: '{{CVP_ATD_CONTAINER_RESET}}'
+    apply_mode: strict
+  register: CVP_DEVICES_RESULTS_3
+
+- name: "Execute pending tasks on {{inventory_hostname}}"
+  arista.cvp.cv_task_v3:
+    tasks: "{{ CVP_DEVICES_RESULTS_3.taskIds }}"
+    
+- name: "Moving devices to original containers"
+  arista.cvp.cv_device_v3:
+    devices: "{{CVP_DEVICES_RESET}}"
+    state: present
+    apply_mode: strict
+  register: CVP_DEVICES_RESULTS_2
+
+- name: "Execute pending tasks on {{inventory_hostname}}"
+  arista.cvp.cv_task_v3:
+    tasks: "{{ CVP_DEVICES_RESULTS_2.taskIds }}"
+  when:
+    - CVP_DEVICES_RESULTS_2.taskIds | length > 0
+
+- name: "Refresh Containers topology on {{inventory_hostname}}"
+  arista.cvp.cv_container_v3:
+    topology: '{{CVP_CONTAINERS_DELETE_2}}'
+    state: absent
+
+
+
+- name: "Resetting ATD Setup Complete"
+  debug:
+    msg: "Reset is complete"
+

@@ -1,0 +1,173 @@
+---
+
+CVP_DEVICES_RESET:
+  - fqdn: s1-leaf1
+    parentContainerName: S1-Leaf
+    configlets:
+      - BASE_s1-leaf1
+  - fqdn: s1-leaf2
+    parentContainerName: S1-Leaf
+    configlets:
+      - BASE_s1-leaf2
+  - fqdn: s1-leaf3
+    parentContainerName: S1-Leaf
+    configlets:
+      - BASE_s1-leaf3
+  - fqdn: s1-leaf4
+    parentContainerName: S1-Leaf
+    configlets:
+      - BASE_s1-leaf4
+  - fqdn: s1-brdr1
+    parentContainerName: S1-Brdr
+    configlets:
+      - BASE_s1-brdr1
+  - fqdn: s1-brdr2
+    parentContainerName: S1-Brdr
+    configlets:
+      - BASE_s1-brdr2
+  - fqdn: s1-core1
+    parentContainerName: S1-Core
+    configlets:
+      - BASE_s1-core1
+  - fqdn: s1-core2
+    parentContainerName: S1-Core
+    configlets:
+      - BASE_s1-core2
+  - fqdn: s1-spine1
+    parentContainerName: S1-Spine
+    configlets:
+      - BASE_s1-spine1
+  - fqdn: s1-spine2
+    parentContainerName: S1-Spine
+    configlets:
+      - BASE_s1-spine2
+  - fqdn: s1-host1
+    parentContainerName: S1-Hosts
+    configlets:
+      - BASE_s1-host1
+  - fqdn: s1-host2
+    parentContainerName: S1-Hosts
+    configlets:
+      - BASE_s1-host2
+  - fqdn: s2-leaf1
+    parentContainerName: S2-Leaf
+    configlets:
+      - BASE_s2-leaf1
+  - fqdn: s2-leaf2
+    parentContainerName: S2-Leaf
+    configlets:
+      - BASE_s2-leaf2
+  - fqdn: s2-leaf3
+    parentContainerName: S2-Leaf
+    configlets:
+      - BASE_s2-leaf3
+  - fqdn: s2-leaf4
+    parentContainerName: S2-Leaf
+    configlets:
+      - BASE_s2-leaf4
+  - fqdn: s2-brdr1
+    parentContainerName: S2-Brdr
+    configlets:
+      - BASE_s2-brdr1
+  - fqdn: s2-brdr2
+    parentContainerName: S2-Brdr
+    configlets:
+      - BASE_s2-brdr2
+  - fqdn: s2-core1
+    parentContainerName: S2-Core
+    configlets:
+      - BASE_s2-core1
+  - fqdn: s2-core2
+    parentContainerName: S2-Core
+    configlets:
+      - BASE_s2-core2
+  - fqdn: s2-spine1
+    parentContainerName: S2-Spine
+    configlets:
+      - BASE_s2-spine1
+  - fqdn: s2-spine2
+    parentContainerName: S2-Spine
+    configlets:
+      - BASE_s2-spine2
+  - fqdn: s2-host1
+    parentContainerName: S2-Hosts
+    configlets:
+      - BASE_s2-host1
+  - fqdn: s2-host2
+    parentContainerName: S2-Hosts
+    configlets:
+      - BASE_s2-host2
+
+CVP_CONTAINERS_RESET:
+  S1-Leaf:
+    parentContainerName: S1
+  S1-Brdr:
+    parentContainerName: S1
+  S1-Core:
+    parentContainerName: S1
+  S1-Spine:
+    parentContainerName: S1
+  S1-Hosts:
+    parentContainerName: S1
+  S1:
+    parentContainerName: Tenant
+  S2-Leaf:
+    parentContainerName: S2
+  S2-Brdr:
+    parentContainerName: S2
+  S2-Core:
+    parentContainerName: S2
+  S2-Spine:
+    parentContainerName: S2
+  S2-Hosts:
+    parentContainerName: S2
+  S2:
+    parentContainerName: Tenant
+
+CVP_ATD_CONTAINER_RESET:
+  Tenant:
+    parentContainerName: Tenant
+    configlets:
+      - ATD-INFRA
+
+CVP_CONTAINERS_DELETE_2:
+  STAGING:
+    parentContainerName: Tenant
+  ATD_FABRIC:
+    parentContainerName: Tenant
+  SITE1:
+    parentContainerName: ATD_FABRIC
+  SITE1_BORDER_LEAF1:
+    parentContainerName: SITE1_L3LEAFS
+  SITE1_CORE_LEAF1:
+    parentContainerName: SITE1_L3LEAFS
+  SITE1_DC_LEAF1:
+    parentContainerName: SITE1_L3LEAFS
+  SITE1_DC_LEAF2:
+    parentContainerName: SITE1_L3LEAFS
+  SITE1_HOSTS:
+    parentContainerName: SITE1_L2LEAFS
+  SITE1_L2LEAFS:
+    parentContainerName: SITE1
+  SITE1_L3LEAFS:
+    parentContainerName: SITE1
+  SITE1_SPINES:
+    parentContainerName: SITE1
+  SITE2:
+    parentContainerName: ATD_FABRIC
+  SITE2_BORDER_LEAF1:
+    parentContainerName: SITE2_L3LEAFS
+  SITE2_CORE_LEAF1:
+    parentContainerName: SITE2_L3LEAFS
+  SITE2_DC_LEAF1:
+    parentContainerName: SITE2_L3LEAFS
+  SITE2_DC_LEAF2:
+    parentContainerName: SITE2_L3LEAFS
+  SITE2_HOSTS:
+    parentContainerName: SITE2_L2LEAFS
+  SITE2_L2LEAFS:
+    parentContainerName: SITE2
+  SITE2_L3LEAFS:
+    parentContainerName: SITE2
+  SITE2_SPINES:
+    parentContainerName: SITE2

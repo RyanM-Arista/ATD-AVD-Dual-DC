@@ -54,9 +54,16 @@ atd-removelegacy: ## Run ansible playbook AFTER running fabric-provision to remo
 update-devel: ## Update to the latest arista.avd collections development branch
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-avd.git#/ansible_collections/arista/avd/,devel
 	ansible-galaxy collection install git+https://github.com/aristanetworks/ansible-cvp.git#/ansible_collections/arista/cvp/,devel
+	pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements.txt --upgrade
+	pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements-dev.txt --upgrade
 
 .PHONY: update-collections
 update-collections: ## Update arista.avd collections to latest release branch
 	ansible-galaxy collection install arista.avd --upgrade
 	ansible-galaxy collection install community.general --upgrade
 	ansible-galaxy collection install ansible.posix --upgrade
+	pip3 install -r /home/coder/.ansible/collections/ansible_collections/arista/avd/requirements.txt --upgrade
+
+.PHONY: reset
+reset: ## Run ansible playbook to Reset ATD Environment
+	ansible-playbook playbooks/atd-reset.yml
